@@ -3,7 +3,7 @@ stick breaking prior on the depth weights.  An infinite-depth tree can
 be approximated by setting the depth to be very high.  This code
 requires that you have installed the GSL package.
 
-The input format of the data is the same as in the LDA-C package.
+The input format of the data is the same as in the [LDA-C package](https://github.com/Blei-Lab/lda-c).
 Each line contains
 
  [# of unique terms] [term #] : [count] ...
@@ -15,7 +15,7 @@ several settings files contained in this directory.
 IMPORTANT:
 
 I hope that this code is useful to you, but please note that this code
-is UNSUPPORTED.  Do not email me with questions.  I like posting as
+is UNSUPPORTED.  Do not email me (David Blei) with questions.  I like posting as
 much code as possible, but I unfortunately do not have the time to
 support all of it.  (This paragraph is my solution to the problem.)
 
