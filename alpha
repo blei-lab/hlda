@@ -1,0 +1,976 @@
+doc.c:13:    int depth = d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c:18:        gsl_permutation* p = rpermutation(d[01;31m-[00m>levels[01;31m-[00m>size);
+doc.c:19:        iv_permute_from_perm(d[01;31m-[00m>levels, p);
+doc.c:20:        iv_permute_from_perm(d[01;31m-[00m>word, p);
+doc.c:26:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+doc.c:28:        int w = ivget(d[01;31m-[00m>word, i);
+doc.c:31:            int l = ivget(d[01;31m-[00m>levels, i);
+doc.c:32:            doc_update_level(d, l, [01;31m-[00m1.0);
+doc.c:33:            topic_update_word(d[01;31m-[00m>path[l], w, [01;31m-[00m1.0);
+doc.c:39:        compute_log_p_level(d, *(d[01;31m-[00m>gem_mean), *(d[01;31m-[00m>gem_scale));
+doc.c:43:                 vget(d[01;31m-[00m>log_p_level, k) +
+doc.c:44:                 vget(d[01;31m-[00m>path[k][01;31m-[00m>log_prob_w, w));
+doc.c:50:        topic_update_word(d[01;31m-[00m>path[new_l], w, 1.0);
+doc.c:51:        ivset(d[01;31m-[00m>levels, i, new_l);
+doc.c:69:    double levels_sum = sum(d[01;31m-[00m>tot_levels);
+doc.c:73:    for (i = 0; i < d[01;31m-[00m>tot_levels[01;31m-[00m>size; i++)
+doc.c:76:            ((1 [01;31m-[00m gem_mean) * gem_scale + vget(d[01;31m-[00m>tot_levels, i)) /
+doc.c:77:            (gem_scale + vget(d[01;31m-[00m>tot_levels, i) + levels_sum);
+doc.c:79:        vset(d[01;31m-[00m>log_p_level,
+doc.c:83:        levels_sum [01;31m-[00m= vget(d[01;31m-[00m>tot_levels, i);
+doc.c:84:        sum_log_prob += log(1 [01;31m-[00m expected_stick_len);
+doc.c:95:    vinc(d[01;31m-[00m>tot_levels, l, update);
+doc.c:111:    c[01;31m-[00m>nterms = 0;
+doc.c:112:    c[01;31m-[00m>ndoc = 0;
+doc.c:118:        c[01;31m-[00m>ndoc = c[01;31m-[00m>ndoc + 1;
+doc.c:120:        if ((c[01;31m-[00m>ndoc % 10) == 0) outlog("read doc %d", c[01;31m-[00m>ndoc);
+doc.c:122:        c[01;31m-[00m>doc = (doc**) realloc(c[01;31m-[00m>doc, sizeof(doc*) * c[01;31m-[00m>ndoc);
+doc.c:123:        c[01;31m-[00m>doc[c[01;31m-[00m>ndoc[01;31m-[00m1] = malloc(sizeof(doc));
+doc.c:124:        d = c[01;31m-[00m>doc[c[01;31m-[00m>ndoc[01;31m-[00m1];
+doc.c:125:        d[01;31m-[00m>id = c[01;31m-[00m>ndoc[01;31m-[00m1;
+doc.c:126:        d[01;31m-[00m>word = new_int_vector(0);
+doc.c:134:            word = word [01;31m-[00m OFFSET;
+doc.c:137:            if (word >= c[01;31m-[00m>nterms)
+doc.c:139:                c[01;31m-[00m>nterms = word + 1;
+doc.c:143:                ivappend(d[01;31m-[00m>word, word);
+doc.c:149:        d[01;31m-[00m>levels      = new_int_vector(d[01;31m-[00m>word[01;31m-[00m>size);
+doc.c:150:        d[01;31m-[00m>path        = malloc(sizeof(topic*) * depth);
+doc.c:151:        d[01;31m-[00m>tot_levels  = gsl_vector_calloc(depth);
+doc.c:152:        d[01;31m-[00m>log_p_level = gsl_vector_calloc(depth);
+doc.c:153:        d[01;31m-[00m>gem_mean    = &(c[01;31m-[00m>gem_mean);
+doc.c:154:        d[01;31m-[00m>gem_scale   = &(c[01;31m-[00m>gem_scale);
+doc.c:156:        for (n = 0; n < d[01;31m-[00m>levels[01;31m-[00m>size; n++)
+doc.c:157:            ivset(d[01;31m-[00m>levels, n, [01;31m-[00m1);
+doc.c:161:    outlog("number of docs    : %d", c[01;31m-[00m>ndoc);
+doc.c:162:    outlog("number of words   : %d", c[01;31m-[00m>nterms);
+doc.c:176:    c[01;31m-[00m>gem_mean = gem_mean;
+doc.c:177:    c[01;31m-[00m>gem_scale = gem_scale;
+doc.c:178:    c[01;31m-[00m>ndoc = 0;
+doc.c:179:    c[01;31m-[00m>doc = malloc(sizeof(doc*) * c[01;31m-[00m>ndoc);
+doc.c:186: * [01;31m-[00m each line contains a space delimited list of topic IDs
+doc.c:193:    int depth = corp[01;31m-[00m>doc[0][01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c:194:    for (d = 0; d < corp[01;31m-[00m>ndoc; d++)
+doc.c:196:        fprintf(file, "%d", corp[01;31m-[00m>doc[d][01;31m-[00m>id);
+doc.c:197:        fprintf(file, " %1.9e", corp[01;31m-[00m>doc[d][01;31m-[00m>score);
+doc.c:200:            fprintf(file, " %d", corp[01;31m-[00m>doc[d][01;31m-[00m>path[l][01;31m-[00m>id);
+doc.c:215:    int depth = corp[01;31m-[00m>doc[0][01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c:216:    double prior_a = (1 [01;31m-[00m corp[01;31m-[00m>gem_mean) * corp[01;31m-[00m>gem_scale;
+doc.c:217:    double prior_b = corp[01;31m-[00m>gem_mean * corp[01;31m-[00m>gem_scale;
+doc.c:219:    for (i = 0; i < corp[01;31m-[00m>ndoc; i++)
+doc.c:221:        doc* curr_doc = corp[01;31m-[00m>doc[i];
+doc.c:222:        curr_doc[01;31m-[00m>score = 0;
+doc.c:227:            double count = vget(curr_doc[01;31m-[00m>tot_levels, l);
+doc.c:236:            double a = vget(curr_doc[01;31m-[00m>tot_levels, l) + prior_a;
+doc.c:238:            curr_doc[01;31m-[00m>score +=
+doc.c:239:                lgamma(a) + lgamma(b) [01;31m-[00m lgamma(a + b) [01;31m-[00m
+doc.c:240:                lgamma(prior_b) [01;31m-[00m lgamma(prior_a) +
+doc.c:243:        score += curr_doc[01;31m-[00m>score;
+doc.c:245:    // exponential 1 prior: log(1) [01;31m-[00m 1 * s
+doc.c:246:    score += [01;31m-[00mcorp[01;31m-[00m>gem_scale;
+doc.c:260:    gsl_vector* alpha = corp[01;31m-[00m>alpha;
+doc.c:262:    int depth = corp[01;31m-[00m>doc[0][01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c:264:    for (i = 0; i < corp[01;31m-[00m>ndoc; i++)
+doc.c:266:        doc* curr_doc = corp[01;31m-[00m>doc[i];
+doc.c:269:            score += lgamma(ivget(curr_doc[01;31m-[00m>levels, l) + vget(alpha, l));
+doc.c:271:        score [01;31m-[00m= lgamma(alphatot + curr_doc[01;31m-[00m>word[01;31m-[00m>size);
+doc.c:286:    gsl_vector* alpha = corp[01;31m-[00m>alpha;
+doc.c:289:    int accept[alpha[01;31m-[00m>size];
+doc.c:292:    for (l = 0; l < alpha[01;31m-[00m>size; l++) accept[l] = 0;
+doc.c:295:        for (l = 0; l < alpha[01;31m-[00m>size; l++)
+doc.c:305:                if (r > exp(new_score [01;31m-[00m current_score))
+doc.c:329:        double old_mean = corp[01;31m-[00m>gem_mean;
+doc.c:330:        double old_scale = corp[01;31m-[00m>gem_scale;
+doc.c:331:        double old_alpha = corp[01;31m-[00m>gem_mean * corp[01;31m-[00m>gem_scale;
+doc.c:338:            corp[01;31m-[00m>gem_mean = new_mean;
+doc.c:339:            corp[01;31m-[00m>gem_scale = new_scale;
+doc.c:342:            if (r > exp(new_score [01;31m-[00m current_score))
+doc.c:344:                corp[01;31m-[00m>gem_mean = old_mean;
+doc.c:345:                corp[01;31m-[00m>gem_scale = old_scale;
+doc.c:355:           accept, corp[01;31m-[00m>gem_mean * corp[01;31m-[00m>gem_scale);
+doc.c:368:        double old_mean = corp[01;31m-[00m>gem_mean;
+doc.c:373:            corp[01;31m-[00m>gem_mean = new_mean;
+doc.c:376:            if (r > exp(new_score [01;31m-[00m current_score))
+doc.c:378:                corp[01;31m-[00m>gem_mean = old_mean;
+doc.c:387:    printf("ACCEPTED %d; GEM MEAN = %5.3f\n", accept, corp[01;31m-[00m>gem_mean);
+doc.c:399:        double old_scale = corp[01;31m-[00m>gem_scale;
+doc.c:404:            corp[01;31m-[00m>gem_scale = new_scale;
+doc.c:407:            if (r > exp(new_score [01;31m-[00m current_score))
+doc.c:409:                corp[01;31m-[00m>gem_scale = old_scale;
+doc.c:418:    // printf("ACCEPTED %d; GEM SCALE = %5.3f\n", accept, corp[01;31m-[00m>gem_scale);
+doc.c.~1.33.~:13:    int depth = d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c.~1.33.~:18:        gsl_permutation* p = rpermutation(d[01;31m-[00m>levels[01;31m-[00m>size);
+doc.c.~1.33.~:19:        iv_permute_from_perm(d[01;31m-[00m>levels, p);
+doc.c.~1.33.~:20:        iv_permute_from_perm(d[01;31m-[00m>word, p);
+doc.c.~1.33.~:26:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+doc.c.~1.33.~:28:        int w = ivget(d[01;31m-[00m>word, i);
+doc.c.~1.33.~:31:            int l = ivget(d[01;31m-[00m>levels, i);
+doc.c.~1.33.~:32:            doc_update_level(d, l, [01;31m-[00m1.0);
+doc.c.~1.33.~:33:            topic_update_word(d[01;31m-[00m>path[l], w, [01;31m-[00m1.0);
+doc.c.~1.33.~:39:        compute_log_p_level(d, *(d[01;31m-[00m>gem_mean), *(d[01;31m-[00m>gem_scale));
+doc.c.~1.33.~:43:                 vget(d[01;31m-[00m>log_p_level, k) +
+doc.c.~1.33.~:44:                 vget(d[01;31m-[00m>path[k][01;31m-[00m>log_prob_w, w));
+doc.c.~1.33.~:50:        topic_update_word(d[01;31m-[00m>path[new_l], w, 1.0);
+doc.c.~1.33.~:51:        ivset(d[01;31m-[00m>levels, i, new_l);
+doc.c.~1.33.~:69:    double levels_sum = sum(d[01;31m-[00m>tot_levels);
+doc.c.~1.33.~:73:    for (i = 0; i < d[01;31m-[00m>tot_levels[01;31m-[00m>size; i++)
+doc.c.~1.33.~:76:            ((1 [01;31m-[00m gem_mean) * gem_scale + vget(d[01;31m-[00m>tot_levels, i)) /
+doc.c.~1.33.~:77:            (gem_scale + vget(d[01;31m-[00m>tot_levels, i) + levels_sum);
+doc.c.~1.33.~:79:        vset(d[01;31m-[00m>log_p_level,
+doc.c.~1.33.~:83:        // sum += vget(d[01;31m-[00m>tot_levels, i);
+doc.c.~1.33.~:85:        levels_sum [01;31m-[00m= vget(d[01;31m-[00m>tot_levels, i);
+doc.c.~1.33.~:86:        sum_log_prob += log(1 [01;31m-[00m expected_stick_len);
+doc.c.~1.33.~:97:    vinc(d[01;31m-[00m>tot_levels, l, update);
+doc.c.~1.33.~:113:    c[01;31m-[00m>nterms = 0;
+doc.c.~1.33.~:114:    c[01;31m-[00m>ndoc = 0;
+doc.c.~1.33.~:120:        c[01;31m-[00m>ndoc = c[01;31m-[00m>ndoc + 1;
+doc.c.~1.33.~:122:        if ((c[01;31m-[00m>ndoc % 10) == 0) outlog("read doc %d", c[01;31m-[00m>ndoc);
+doc.c.~1.33.~:124:        c[01;31m-[00m>doc = (doc**) realloc(c[01;31m-[00m>doc, sizeof(doc*) * c[01;31m-[00m>ndoc);
+doc.c.~1.33.~:125:        c[01;31m-[00m>doc[c[01;31m-[00m>ndoc[01;31m-[00m1] = malloc(sizeof(doc));
+doc.c.~1.33.~:126:        d = c[01;31m-[00m>doc[c[01;31m-[00m>ndoc[01;31m-[00m1];
+doc.c.~1.33.~:127:        d[01;31m-[00m>id = c[01;31m-[00m>ndoc[01;31m-[00m1;
+doc.c.~1.33.~:128:        d[01;31m-[00m>word = new_int_vector(0);
+doc.c.~1.33.~:136:            word = word [01;31m-[00m OFFSET;
+doc.c.~1.33.~:139:            if (word >= c[01;31m-[00m>nterms)
+doc.c.~1.33.~:141:                c[01;31m-[00m>nterms = word + 1;
+doc.c.~1.33.~:145:                ivappend(d[01;31m-[00m>word, word);
+doc.c.~1.33.~:151:        d[01;31m-[00m>levels      = new_int_vector(d[01;31m-[00m>word[01;31m-[00m>size);
+doc.c.~1.33.~:152:        d[01;31m-[00m>path        = malloc(sizeof(topic*) * depth);
+doc.c.~1.33.~:153:        d[01;31m-[00m>tot_levels  = gsl_vector_calloc(depth);
+doc.c.~1.33.~:154:        d[01;31m-[00m>log_p_level = gsl_vector_calloc(depth);
+doc.c.~1.33.~:155:        d[01;31m-[00m>gem_mean    = &(c[01;31m-[00m>gem_mean);
+doc.c.~1.33.~:156:        d[01;31m-[00m>gem_scale   = &(c[01;31m-[00m>gem_scale);
+doc.c.~1.33.~:158:        for (n = 0; n < d[01;31m-[00m>levels[01;31m-[00m>size; n++)
+doc.c.~1.33.~:159:            ivset(d[01;31m-[00m>levels, n, [01;31m-[00m1);
+doc.c.~1.33.~:163:    outlog("number of docs    : %d", c[01;31m-[00m>ndoc);
+doc.c.~1.33.~:164:    outlog("number of words   : %d", c[01;31m-[00m>nterms);
+doc.c.~1.33.~:178:    c[01;31m-[00m>gem_mean = gem_mean;
+doc.c.~1.33.~:179:    c[01;31m-[00m>gem_scale = gem_scale;
+doc.c.~1.33.~:180:    c[01;31m-[00m>ndoc = 0;
+doc.c.~1.33.~:181:    c[01;31m-[00m>doc = malloc(sizeof(doc*) * c[01;31m-[00m>ndoc);
+doc.c.~1.33.~:188: * [01;31m-[00m each line contains a space delimited list of topic IDs
+doc.c.~1.33.~:195:    int depth = corp[01;31m-[00m>doc[0][01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c.~1.33.~:196:    for (d = 0; d < corp[01;31m-[00m>ndoc; d++)
+doc.c.~1.33.~:198:        fprintf(file, "%d", corp[01;31m-[00m>doc[d][01;31m-[00m>id);
+doc.c.~1.33.~:199:        fprintf(file, " %1.9e", corp[01;31m-[00m>doc[d][01;31m-[00m>score);
+doc.c.~1.33.~:202:            fprintf(file, " %d", corp[01;31m-[00m>doc[d][01;31m-[00m>path[l][01;31m-[00m>id);
+doc.c.~1.33.~:217:    int depth = corp[01;31m-[00m>doc[0][01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c.~1.33.~:218:    double prior_a = (1 [01;31m-[00m corp[01;31m-[00m>gem_mean) * corp[01;31m-[00m>gem_scale;
+doc.c.~1.33.~:219:    double prior_b = corp[01;31m-[00m>gem_mean * corp[01;31m-[00m>gem_scale;
+doc.c.~1.33.~:221:    for (i = 0; i < corp[01;31m-[00m>ndoc; i++)
+doc.c.~1.33.~:223:        doc* curr_doc = corp[01;31m-[00m>doc[i];
+doc.c.~1.33.~:224:        curr_doc[01;31m-[00m>score = 0;
+doc.c.~1.33.~:229:            double count = vget(curr_doc[01;31m-[00m>tot_levels, l);
+doc.c.~1.33.~:238:            double a = vget(curr_doc[01;31m-[00m>tot_levels, l) + prior_a;
+doc.c.~1.33.~:240:            curr_doc[01;31m-[00m>score +=
+doc.c.~1.33.~:241:                lgamma(a) + lgamma(b) [01;31m-[00m lgamma(a + b) [01;31m-[00m
+doc.c.~1.33.~:242:                lgamma(prior_b) [01;31m-[00m lgamma(prior_a) +
+doc.c.~1.33.~:245:        score += curr_doc[01;31m-[00m>score;
+doc.c.~1.33.~:247:    // exponential 1 prior: log(1) [01;31m-[00m 1 * s
+doc.c.~1.33.~:248:    score += [01;31m-[00mcorp[01;31m-[00m>gem_scale;
+doc.c.~1.33.~:262:    gsl_vector* alpha = corp[01;31m-[00m>alpha;
+doc.c.~1.33.~:264:    int depth = corp[01;31m-[00m>doc[0][01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+doc.c.~1.33.~:266:    for (i = 0; i < corp[01;31m-[00m>ndoc; i++)
+doc.c.~1.33.~:268:        doc* curr_doc = corp[01;31m-[00m>doc[i];
+doc.c.~1.33.~:271:            score += lgamma(ivget(curr_doc[01;31m-[00m>levels, l) + vget(alpha, l));
+doc.c.~1.33.~:273:        score [01;31m-[00m= lgamma(alphatot + curr_doc[01;31m-[00m>word[01;31m-[00m>size);
+doc.c.~1.33.~:288:    gsl_vector* alpha = corp[01;31m-[00m>alpha;
+doc.c.~1.33.~:291:    int accept[alpha[01;31m-[00m>size];
+doc.c.~1.33.~:294:    for (l = 0; l < alpha[01;31m-[00m>size; l++) accept[l] = 0;
+doc.c.~1.33.~:297:        for (l = 0; l < alpha[01;31m-[00m>size; l++)
+doc.c.~1.33.~:307:                if (r > exp(new_score [01;31m-[00m current_score))
+doc.c.~1.33.~:331:        double old_mean = corp[01;31m-[00m>gem_mean;
+doc.c.~1.33.~:332:        double old_scale = corp[01;31m-[00m>gem_scale;
+doc.c.~1.33.~:333:        double old_alpha = corp[01;31m-[00m>gem_mean * corp[01;31m-[00m>gem_scale;
+doc.c.~1.33.~:340:            corp[01;31m-[00m>gem_mean = new_mean;
+doc.c.~1.33.~:341:            corp[01;31m-[00m>gem_scale = new_scale;
+doc.c.~1.33.~:344:            if (r > exp(new_score [01;31m-[00m current_score))
+doc.c.~1.33.~:346:                corp[01;31m-[00m>gem_mean = old_mean;
+doc.c.~1.33.~:347:                corp[01;31m-[00m>gem_scale = old_scale;
+doc.c.~1.33.~:357:           accept, corp[01;31m-[00m>gem_mean * corp[01;31m-[00m>gem_scale);
+doc.c.~1.33.~:370:        double old_mean = corp[01;31m-[00m>gem_mean;
+doc.c.~1.33.~:375:            corp[01;31m-[00m>gem_mean = new_mean;
+doc.c.~1.33.~:378:            if (r > exp(new_score [01;31m-[00m current_score))
+doc.c.~1.33.~:380:                corp[01;31m-[00m>gem_mean = old_mean;
+doc.c.~1.33.~:389:    printf("ACCEPTED %d; GEM MEAN = %5.3f\n", accept, corp[01;31m-[00m>gem_mean);
+doc.c.~1.33.~:401:        double old_scale = corp[01;31m-[00m>gem_scale;
+doc.c.~1.33.~:406:            corp[01;31m-[00m>gem_scale = new_scale;
+doc.c.~1.33.~:409:            if (r > exp(new_score [01;31m-[00m current_score))
+doc.c.~1.33.~:411:                corp[01;31m-[00m>gem_scale = old_scale;
+doc.c.~1.33.~:420:    // printf("ACCEPTED %d; GEM SCALE = %5.3f\n", accept, corp[01;31m-[00m>gem_scale);
+Binary file doc.o matches
+funs.R:1:plot.scores <[01;31m-[00m function(filename, ...)
+funs.R:3:    x <[01;31m-[00m read.table(filename);
+funs.R:12:plot.score <[01;31m-[00m function(v, title)
+funs.R:20:monitor.scores <[01;31m-[00m function(filename, lag = 15)
+funs.R:31:compute.gamma <[01;31m-[00m function(n, k.1, k.2)
+funs.R:33:    gam.1 <[01;31m-[00m k.1 / log(n);
+funs.R:34:    gam.2 <[01;31m-[00m k.2 / (log(n) [01;31m-[00m log(gam.1) [01;31m-[00m log(log(n)))
+gibbs.c:9:    tree * tr = state[01;31m-[00m>tr;
+gibbs.c:10:    corpus * corp = state[01;31m-[00m>corp;
+gibbs.c:11:    double score = state[01;31m-[00m>score;
+gibbs.c:16:    write_vect(tr[01;31m-[00m>eta, "ETA", file);
+gibbs.c:17:    write_vect(tr[01;31m-[00m>gam, "GAMMA", file);
+gibbs.c:18:    write_double(corp[01;31m-[00m>gem_mean, "GEM_MEAN", file);
+gibbs.c:19:    write_double(corp[01;31m-[00m>gem_scale, "GEM_SCALE", file);
+gibbs.c:20:    write_double(tr[01;31m-[00m>scaling_shape, "SCALING_SHAPE", file);
+gibbs.c:21:    write_double(tr[01;31m-[00m>scaling_scale, "SCALING_SCALE", file);
+gibbs.c:36:    FILE* score_f = state[01;31m-[00m>score_log;
+gibbs.c:37:    corpus * corp = state[01;31m-[00m>corp;
+gibbs.c:38:    tree * tr = state[01;31m-[00m>tr;
+gibbs.c:39:    int depth = tr[01;31m-[00m>depth;
+gibbs.c:43:        fprintf(state[01;31m-[00m>score_log,
+gibbs.c:45:                state[01;31m-[00m>iter, state[01;31m-[00m>gem_score, state[01;31m-[00m>eta_score,
+gibbs.c:46:                state[01;31m-[00m>gamma_score, state[01;31m-[00m>score,
+gibbs.c:47:                corp[01;31m-[00m>gem_mean, corp[01;31m-[00m>gem_scale);
+gibbs.c:49:        for (l = 0; l < depth [01;31m-[00m 1; l++)
+gibbs.c:51:            fprintf(state[01;31m-[00m>score_log, " %7.4e", vget(tr[01;31m-[00m>gam,l));
+gibbs.c:55:            fprintf(state[01;31m-[00m>score_log, " %7.4e", vget(tr[01;31m-[00m>eta,l));
+gibbs.c:58:        fprintf(state[01;31m-[00m>score_log, "\n");
+gibbs.c:59:        fflush(state[01;31m-[00m>score_log);
+gibbs.c:61:    if (state[01;31m-[00m>tree_structure_log != NULL)
+gibbs.c:63:        write_tree_levels(tr, state[01;31m-[00m>tree_structure_log);
+gibbs.c:65:    if (state[01;31m-[00m>run_dir != NULL)
+gibbs.c:68:        if ((state[01;31m-[00m>output_lag > 0) &&
+gibbs.c:69:            (state[01;31m-[00m>iter % state[01;31m-[00m>output_lag) == 0)
+gibbs.c:71:            sprintf(filename, "%s/iter=%06d", state[01;31m-[00m>run_dir, state[01;31m-[00m>iter);
+gibbs.c:74:        if (state[01;31m-[00m>score == state[01;31m-[00m>max_score)
+gibbs.c:76:            outlog("mode at iteration %04d", state[01;31m-[00m>iter);
+gibbs.c:77:            sprintf(filename, "%s/mode", state[01;31m-[00m>run_dir);
+gibbs.c:85:    tree * tr = state[01;31m-[00m>tr;
+gibbs.c:86:    corpus * corp = state[01;31m-[00m>corp;
+gibbs.c:88:    state[01;31m-[00m>gem_score = gem_score(corp);
+gibbs.c:89:    state[01;31m-[00m>eta_score = eta_score(tr[01;31m-[00m>root);
+gibbs.c:90:    state[01;31m-[00m>gamma_score = gamma_score(tr[01;31m-[00m>root);
+gibbs.c:91:    state[01;31m-[00m>score = state[01;31m-[00m>gem_score + state[01;31m-[00m>eta_score + state[01;31m-[00m>gamma_score;
+gibbs.c:92:    if ((state[01;31m-[00m>score > state[01;31m-[00m>max_score) || (state[01;31m-[00m>iter == 0))
+gibbs.c:94:        state[01;31m-[00m>max_score = state[01;31m-[00m>score;
+gibbs.c:100:    tree* tr = state[01;31m-[00m>tr;
+gibbs.c:101:    corpus* corp = state[01;31m-[00m>corp;
+gibbs.c:102:    state[01;31m-[00m>iter = state[01;31m-[00m>iter + 1;
+gibbs.c:103:    int iter = state[01;31m-[00m>iter;
+gibbs.c:105:    // set up the sampling level (or fix at the depth [01;31m-[00m 1)
+gibbs.c:107:    if (state[01;31m-[00m>level_lag == [01;31m-[00m1)
+gibbs.c:109:        sampling_level = tr[01;31m-[00m>depth [01;31m-[00m 1;
+gibbs.c:111:    else if ((iter % state[01;31m-[00m>level_lag) == 0)
+gibbs.c:113:        int level_inc = iter / state[01;31m-[00m>level_lag;
+gibbs.c:114:        sampling_level = level_inc % (tr[01;31m-[00m>depth [01;31m-[00m 1);
+gibbs.c:118:    if (state[01;31m-[00m>shuffle_lag > 0)
+gibbs.c:120:       do_shuffle = 1 [01;31m-[00m (iter % state[01;31m-[00m>shuffle_lag);
+gibbs.c:124:        gsl_ran_shuffle(RANDNUMGEN, corp[01;31m-[00m>doc, corp[01;31m-[00m>ndoc, sizeof(doc*));
+gibbs.c:128:    for (d = 0; d < corp[01;31m-[00m>ndoc; d++)
+gibbs.c:130:        tree_sample_doc_path(tr, corp[01;31m-[00m>doc[d], 1, sampling_level);
+gibbs.c:132:    for (d = 0; d < corp[01;31m-[00m>ndoc; d++)
+gibbs.c:134:        doc_sample_levels(corp[01;31m-[00m>doc[d], do_shuffle, 1);
+gibbs.c:136:    // sample hyper[01;31m-[00mparameters
+gibbs.c:137:    if ((state[01;31m-[00m>hyper_lag > 0) && (iter % state[01;31m-[00m>hyper_lag) == 0)
+gibbs.c:141:        // !!! FOR NOW, ALL HYPER[01;31m-[00mPARAMETER LEARNING IS OFF
+gibbs.c:142:        // dfs_sample_scaling(tr[01;31m-[00m>root);
+gibbs.c:153:    tree * tr = state[01;31m-[00m>tr;
+gibbs.c:154:    corpus * corp = state[01;31m-[00m>corp;
+gibbs.c:156:    gsl_ran_shuffle(RANDNUMGEN, corp[01;31m-[00m>doc, corp[01;31m-[00m>ndoc, sizeof(doc*));
+gibbs.c:157:    int depth = tr[01;31m-[00m>depth;
+gibbs.c:159:    for (i = 0; i < corp[01;31m-[00m>ndoc; i++)
+gibbs.c:161:        doc* d = corp[01;31m-[00m>doc[i];
+gibbs.c:162:        gsl_vector_set_zero(d[01;31m-[00m>tot_levels);
+gibbs.c:163:        gsl_vector_set_zero(d[01;31m-[00m>log_p_level);
+gibbs.c:164:        iv_permute(d[01;31m-[00m>word);
+gibbs.c:165:        d[01;31m-[00m>path[depth [01;31m-[00m 1] = tree_fill(tr[01;31m-[00m>root);
+gibbs.c:166:        topic_update_doc_cnt(d[01;31m-[00m>path[depth [01;31m-[00m 1], 1.0);
+gibbs.c:167:        for (j = depth [01;31m-[00m 2; j >= 0; j[01;31m-[00m[01;31m-[00m)
+gibbs.c:169:            d[01;31m-[00m>path[j] = d[01;31m-[00m>path[j+1][01;31m-[00m>parent;
+gibbs.c:170:            topic_update_doc_cnt(d[01;31m-[00m>path[j], 1.0);
+gibbs.c:177:    if (state[01;31m-[00m>run_dir != NULL)
+gibbs.c:180:        sprintf(filename, "%s/initial", state[01;31m-[00m>run_dir);
+gibbs.c:182:        sprintf(filename, "%s/mode", state[01;31m-[00m>run_dir);
+gibbs.c:198:    gsl_vector* gam = read_vect("GAM", depth [01;31m-[00m 1, init);
+gibbs.c:205:    state[01;31m-[00m>iter = 0;
+gibbs.c:206:    state[01;31m-[00m>corp = corpus_new(gem_mean, gem_scale);
+gibbs.c:207:    read_corpus(corpus, state[01;31m-[00m>corp, depth);
+gibbs.c:208:    state[01;31m-[00m>tr = tree_new(depth, state[01;31m-[00m>corp[01;31m-[00m>nterms,
+gibbs.c:214:    state[01;31m-[00m>shuffle_lag = DEFAULT_SHUFFLE_LAG;
+gibbs.c:215:    state[01;31m-[00m>hyper_lag   = DEFAULT_HYPER_LAG;
+gibbs.c:216:    state[01;31m-[00m>level_lag   = DEFAULT_LEVEL_LAG;
+gibbs.c:217:    state[01;31m-[00m>output_lag  = DEFAULT_OUTPUT_LAG;
+gibbs.c:218:    state[01;31m-[00m>run_dir = NULL;
+gibbs.c:222:        state[01;31m-[00m>run_dir = malloc(sizeof(char) * 100);
+gibbs.c:225:        sprintf(state[01;31m-[00m>run_dir, "%s/run%03d", out_dir, id);
+gibbs.c:226:        while (directory_exist(state[01;31m-[00m>run_dir))
+gibbs.c:229:            sprintf(state[01;31m-[00m>run_dir, "%s/run%03d", out_dir, id);
+gibbs.c:231:        mkdir(state[01;31m-[00m>run_dir, S_IRUSR|S_IWUSR|S_IXUSR);
+gibbs.c:234:        sprintf(filename, "%s/tree.log", state[01;31m-[00m>run_dir);
+gibbs.c:235:        state[01;31m-[00m>tree_structure_log = fopen(filename, "w");
+gibbs.c:236:        sprintf(filename, "%s/score.log", state[01;31m-[00m>run_dir);
+gibbs.c:237:        state[01;31m-[00m>score_log = fopen(filename, "w");
+gibbs.c:245:    state[01;31m-[00m>corp = corp;
+gibbs.c:246:    state[01;31m-[00m>tr = copy_tree(orig[01;31m-[00m>tr);
+gibbs.c:248:    state[01;31m-[00m>run_dir = NULL;
+gibbs.c:249:    state[01;31m-[00m>score_log = NULL;
+gibbs.c:250:    state[01;31m-[00m>tree_structure_log = NULL;
+gibbs.c:252:    state[01;31m-[00m>shuffle_lag = orig[01;31m-[00m>shuffle_lag;
+gibbs.c:253:    state[01;31m-[00m>hyper_lag = [01;31m-[00m1;
+gibbs.c:254:    state[01;31m-[00m>level_lag = orig[01;31m-[00m>level_lag;
+gibbs.c:255:    state[01;31m-[00m>output_lag = [01;31m-[00m1;
+gibbs.c:276:        if ((iter % 100) == 0) outlog("held[01;31m-[00mout iter %04d", iter);
+gibbs.c:280:            double this_score = state[01;31m-[00m>score [01;31m-[00m orig[01;31m-[00m>score;
+gibbs.c:286:    outlog("mean held[01;31m-[00mout score = %7.3f (%d samples)", score, nsamples);
+gibbs.c:287:    free_tree(state[01;31m-[00m>tr);
+hyperparameter.c:12:  where \pi/(1[01;31m-[00m\pi) = a+k[01;31m-[00m1 / n(b[01;31m-[00mlog(\eta))
+hyperparameter.c:15:        sample \alpha' ~ G(a + k, b [01;31m-[00m log(\eta))
+hyperparameter.c:17:        sample \alpha' ~ G(a + k [01;31m-[00m 1, b [01;31m-[00m log(\eta))
+hyperparameter.c:31:    double pi = shape + k [01;31m-[00m 1;
+hyperparameter.c:32:    double rate = 1.0/scale [01;31m-[00m log(eta);
+hyperparameter.c:39:        alpha_new = rgamma(shape + k [01;31m-[00m 1, 1.0/rate);
+hyperparameter.c:46:    printf("[01;31m-[00m[01;31m-[00m[01;31m-[00m[01;31m-[00m[01;31m-[00m\nnew alpha=%g\n[01;31m-[00m[01;31m-[00m[01;31m-[00m[01;31m-[00m[01;31m-[00m\n", alpha_new);
+Binary file hyperparameter.o matches
+main.c:43:    corpus* heldout_corp = corpus_new(state[01;31m-[00m>corp[01;31m-[00m>gem_mean,
+main.c:44:                                      state[01;31m-[00m>corp[01;31m-[00m>gem_scale);
+main.c:45:    read_corpus(test, heldout_corp, state[01;31m-[00m>tr[01;31m-[00m>depth);
+main.c:48:    sprintf(filename, "%s/test.dat", state[01;31m-[00m>run_dir);
+main.c:54:               iter, ntopics_in_tree(state[01;31m-[00m>tr));
+main.c:56:        if ((state[01;31m-[00m>iter % TEST_LAG) == 0)
+main.c:61:                    state[01;31m-[00m>iter, score, ntopics_in_tree(state[01;31m-[00m>tr));
+Binary file main.o matches
+notes.txt:14:       [01;31m-[00m distribution over words
+notes.txt:15:       [01;31m-[00m scaling parameter
+notes.txt:19:       [01;31m-[00m tree of topics
+notes.txt:20:       [01;31m-[00m gem mean and scaling
+notes.txt:21:       [01;31m-[00m eta for each level
+notes.txt:22:       [01;31m-[00m gamma can be left over
+notes.txt:23:       [01;31m-[00m hyperparameters for scaling
+notes.txt:29:    [01;31m-[00m for each document
+notes.txt:30:      [01;31m-[00m sample the z's
+notes.txt:31:      [01;31m-[00m sample the path
+notes.txt:33:    [01;31m-[00m for each tree node
+notes.txt:34:      [01;31m-[00m sample gamma
+notes.txt:36:    [01;31m-[00m sample other hyperparameters (maybe)
+notes.txt:46:new design: [01;31m-[00m permute docs if score goes down (is this a proper MC?)
+notes.txt:47:            [01;31m-[00m never permute words
+notes.txt:48:            [01;31m-[00m always sample words as a block
+notes.txt:59:       [01;31m-[00m always permute documents
+notes.txt:60:       [01;31m-[00m always permute document words and sample as a block
+notes.txt:61:       [01;31m-[00m sometimes resample the tree
+notes.txt:62:       [01;31m-[00m sometimes don't sample the tree
+notes.txt:63:       [01;31m-[00m sometimes don't sample the levels
+notes.txt:64:       [01;31m-[00m rarely, completely restart
+notes.txt:72:to[01;31m-[00mdo
+notes.txt:74:[01;31m-[00m make everthing a parameter to be read:
+notes.txt:75:  [01;31m-[00m in main.c, topics.h, ... grep "#define"
+notes.txt:76:[01;31m-[00m print code and organize it
+notes.txt:77:[01;31m-[00m make the MH code more general by passing in a score function
+notes.txt:78:[01;31m-[00m no need to recurse always in computing the scores (?)
+notes.txt:80:longer term to[01;31m-[00mdo
+notes.txt:82:[01;31m-[00m "warm" start from states
+notes.txt:86:[01;31m-[00m add number of words and total words to corpus structure
+notes.txt:87:[01;31m-[00m add an environment variable and corresponding code for priority of verbosity
+notes.txt:88:[01;31m-[00m make alpha like eta, gamma: point documents back to the corpus to get it
+notes.txt:89:[01;31m-[00m divide up the main function
+notes.txt:93:pseudo[01;31m-[00mcode
+notes.txt:122:    level[i,d] = [01;31m-[00m1 for all i, d
+notes.txt:132:[01;31m-[00m[01;31m-[00m[01;31m-[00m
+notes.txt:141:[01;31m-[00m tree
+notes.txt:142:[01;31m-[00m corpus
+notes.txt:143:[01;31m-[00m eta, alpha, gamma
+notes.txt:146:[01;31m-[00m depth
+notes.txt:147:[01;31m-[00m root
+notes.txt:148:[01;31m-[00m eta*
+notes.txt:149:[01;31m-[00m gamma*
+notes.txt:150:[01;31m-[00m total_doc_count
+notes.txt:153:[01;31m-[00m doc_count
+notes.txt:154:[01;31m-[00m word_count
+notes.txt:155:[01;31m-[00m word_total
+notes.txt:156:[01;31m-[00m log_word_prob
+notes.txt:157:[01;31m-[00m nchild
+notes.txt:158:[01;31m-[00m child*[1..nchild]
+notes.txt:159:[01;31m-[00m parent*
+notes.txt:160:[01;31m-[00m prob
+notes.txt:161:[01;31m-[00m eta*
+notes.txt:162:[01;31m-[00m total_doc_count*
+notes.txt:165:[01;31m-[00m words
+notes.txt:166:[01;31m-[00m levels
+notes.txt:167:[01;31m-[00m path[1..L]
+notes.txt:168:[01;31m-[00m tree*
+notes.txt:171:[01;31m-[00m ndoc
+notes.txt:172:[01;31m-[00m doc
+notes.txt:173:[01;31m-[00m alpha*
+notes.txt:176:[01;31m-[00m size
+notes.txt:177:[01;31m-[00m int[]
+notes.txt:180:[01;31m-[00m size
+notes.txt:181:[01;31m-[00m double[]
+notes.txt:186:[01;31m-[00m update word in word_count
+notes.txt:187:[01;31m-[00m update word in word_total
+notes.txt:188:[01;31m-[00m change log_word_prob
+notes.txt:191:[01;31m-[00m populate probabilities [eta, gamma]
+notes.txt:192:[01;31m-[00m sample probability
+notes.txt:193:[01;31m-[00m fill in tree
+notes.txt:194:[01;31m-[00m populate path of the document
+notes.txt:195:[01;31m-[00m (do not update!)
+notes.txt:198:[01;31m-[00m for each document
+notes.txt:199:  [01;31m-[00m sample path
+notes.txt:200:  [01;31m-[00m sample levels
+notes.txt:203:[01;31m-[00m write log probabilities on a line
+notes.txt:206:[01;31m-[00m DFS through topics
+notes.txt:207:  [01;31m-[00m write level and log probabilities
+notes.txt:211:    [01;31m-[00m for each word
+notes.txt:212:      [01;31m-[00m if not init remove word from the topic
+notes.txt:213:      [01;31m-[00m sample level [alpha]
+notes.txt:214:      [01;31m-[00m add word to the topic
+notes.txt:219:    [01;31m-[00m if not init, update document along path (doc, [01;31m-[00m1.0)
+notes.txt:220:    [01;31m-[00m tree_sample_doc_path(tree, doc)
+notes.txt:221:    [01;31m-[00m update document along path(doc, +1.0)
+topic.c:10:    vinc(t[01;31m-[00m>w_cnt, w, update);
+topic.c:11:    t[01;31m-[00m>w_tot += update;
+topic.c:15:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c:16:    vset(t[01;31m-[00m>log_prob_w, w,
+topic.c:17:         log(vget(t[01;31m-[00m>w_cnt, w) + eta) [01;31m-[00m
+topic.c:18:         log(t[01;31m-[00m>w_tot + t[01;31m-[00m>w_cnt[01;31m-[00m>size * eta));
+topic.c:20:    vset(t[01;31m-[00m>lgam_w_plus_eta, w, lgam(vget(t[01;31m-[00m>w_cnt, w) + eta));
+topic.c:32:    t[01;31m-[00m>doc_tot += update;
+topic.c:33:    t[01;31m-[00m>log_doc_tot = log(t[01;31m-[00m>doc_tot);
+topic.c:46:    int nwords = t[01;31m-[00m>w_cnt[01;31m-[00m>size;
+topic.c:47:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c:49:    score = lgam(nwords * eta) [01;31m-[00m nwords * lgam(eta);
+topic.c:53:	// score += lgam(vget(t[01;31m-[00m>w_cnt, w) + eta);
+topic.c:54:        score += vget(t[01;31m-[00m>lgam_w_plus_eta, w);
+topic.c:57:    score [01;31m-[00m= lgam(t[01;31m-[00m>w_tot + nwords * eta);
+topic.c:58:    // exponential(1) prior: log(1) [01;31m-[00m 1 * eta
+topic.c:59:    score [01;31m-[00m= eta;
+topic.c:61:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c:63:        score += eta_score(t[01;31m-[00m>child[c]);
+topic.c:71:    gsl_vector* vect = tr[01;31m-[00m>eta;
+topic.c:72:    int depth = vect[01;31m-[00m>size;
+topic.c:80:        double current_score = eta_score(tr[01;31m-[00m>root);
+topic.c:89:                double new_score = eta_score(tr[01;31m-[00m>root);
+topic.c:91:                if (r > exp(new_score [01;31m-[00m current_score))
+topic.c:113:    int depth = d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+topic.c:114:    int nword = d[01;31m-[00m>word[01;31m-[00m>size;
+topic.c:119:        int level = ivget(d[01;31m-[00m>levels, n);
+topic.c:121:            topic_update_word(d[01;31m-[00m>path[level], ivget(d[01;31m-[00m>word, n), update);
+topic.c:125:        topic_update_doc_cnt(d[01;31m-[00m>path[n], update);
+topic.c:139:    tree_update_from_doc(d, [01;31m-[00m1.0, root_level);
+topic.c:140:    tree_prune(d[01;31m-[00m>path[tr[01;31m-[00m>depth [01;31m-[00m 1]);
+topic.c:148:    int depth = node[01;31m-[00m>tr[01;31m-[00m>depth;
+topic.c:149:    int l = depth[01;31m-[00m1;
+topic.c:152:        d[01;31m-[00m>path[l] = node;
+topic.c:153:        node = node[01;31m-[00m>parent;
+topic.c:154:        l[01;31m-[00m[01;31m-[00m;
+topic.c:184:    double path_prob[tr[01;31m-[00m>depth];
+topic.c:185:    populate_prob_dfs(d[01;31m-[00m>path[root_level], d, &logsum, path_prob, root_level);
+topic.c:189:    topic* node = tree_sample_path(d[01;31m-[00m>path[root_level], logsum);
+topic.c:208:    int nterms = t[01;31m-[00m>log_prob_w[01;31m-[00m>size;
+topic.c:209:    int nword = d[01;31m-[00m>word[01;31m-[00m>size;
+topic.c:215:	count[ivget(d[01;31m-[00m>word, n)] = 0;
+topic.c:219:	if (ivget(d[01;31m-[00m>levels, n) == level)
+topic.c:221:	    count[ivget(d[01;31m-[00m>word, n)]++;
+topic.c:225:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c:226:    result = lgam(t[01;31m-[00m>w_tot + nterms * eta); // !!! this should be precomputed
+topic.c:227:    result [01;31m-[00m= lgam(t[01;31m-[00m>w_tot + vget(d[01;31m-[00m>tot_levels, level) + nterms * eta);
+topic.c:231:        int wd = ivget(d[01;31m-[00m>word, n);
+topic.c:234:            // result [01;31m-[00m= vget(t[01;31m-[00m>lgam_w_plus_eta, wd);
+topic.c:235:            result [01;31m-[00m= lgam(vget(t[01;31m-[00m>w_cnt, wd) + eta); // !!! this should be precomputed
+topic.c:236:            result += lgam(vget(t[01;31m-[00m>w_cnt, wd) + count[wd] + eta);
+topic.c:248:    int nword = d[01;31m-[00m>word[01;31m-[00m>size;
+topic.c:252:	count[ivget(d[01;31m-[00m>word, n)] = 0;
+topic.c:256:	if (ivget(d[01;31m-[00m>levels, n) == level)
+topic.c:257:	    count[ivget(d[01;31m-[00m>word, n)]++;
+topic.c:260:    result [01;31m-[00m= lgam(vget(d[01;31m-[00m>tot_levels, level) + nterms * eta);
+topic.c:264:	int wd = ivget(d[01;31m-[00m>word, n);
+topic.c:267:	    result [01;31m-[00m= lgam(eta);
+topic.c:283:    int level = node[01;31m-[00m>level;
+topic.c:284:    int depth = node[01;31m-[00m>tr[01;31m-[00m>depth;
+topic.c:293:        denom = log(node[01;31m-[00m>parent[01;31m-[00m>doc_tot + node[01;31m-[00m>parent[01;31m-[00m>scaling);
+topic.c:295:        // denom = log(node[01;31m-[00m>parent[01;31m-[00m>doc_tot + node[01;31m-[00m>parent[01;31m-[00m>nchild * (level [01;31m-[00m 1) * 0.01 + vget(node[01;31m-[00m>tr[01;31m-[00m>gam, level [01;31m-[00m 1));
+topic.c:297:        // pprob[level] += node[01;31m-[00m>log_doc_tot [01;31m-[00m denom;
+topic.c:298:        pprob[level] += log(node[01;31m-[00m>doc_tot) [01;31m-[00m denom;
+topic.c:303:    if (level < depth [01;31m-[00m 1)
+topic.c:305:        int nterms = node[01;31m-[00m>log_prob_w[01;31m-[00m>size;
+topic.c:308:            double eta = vget(node[01;31m-[00m>tr[01;31m-[00m>eta, l);
+topic.c:312:        // double gam = vget(node[01;31m-[00m>tr[01;31m-[00m>gam, level) + node[01;31m-[00m>nchild * level * 0.01;
+topic.c:315:        pprob[level+1] += log(node[01;31m-[00m>scaling);
+topic.c:316:        pprob[level+1] [01;31m-[00m= log(node[01;31m-[00m>doc_tot + node[01;31m-[00m>scaling);
+topic.c:320:    node[01;31m-[00m>prob = 0;
+topic.c:321:    for (l = root_level; l < depth; l++) node[01;31m-[00m>prob += pprob[l];
+topic.c:325:        *logsum = node[01;31m-[00m>prob;
+topic.c:327:        *logsum = log_sum(*logsum, node[01;31m-[00m>prob);
+topic.c:330:    for (c = 0; c < node[01;31m-[00m>nchild; c++)
+topic.c:331:        populate_prob_dfs(node[01;31m-[00m>child[c], d, logsum, pprob, root_level);
+topic.c:343:    topic* parent = t[01;31m-[00m>parent;
+topic.c:344:    if (t[01;31m-[00m>doc_tot == 0)
+topic.c:365:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c:367:	delete_node(t[01;31m-[00m>child[c]);
+topic.c:371:    int nc = t[01;31m-[00m>parent[01;31m-[00m>nchild;
+topic.c:374:	if (t[01;31m-[00m>parent[01;31m-[00m>child[c] == t)
+topic.c:376:	    t[01;31m-[00m>parent[01;31m-[00m>child[c] = t[01;31m-[00m>parent[01;31m-[00m>child[nc [01;31m-[00m 1];
+topic.c:377:	    t[01;31m-[00m>parent[01;31m-[00m>nchild[01;31m-[00m[01;31m-[00m;
+topic.c:382:    gsl_vector_free(t[01;31m-[00m>w_cnt);
+topic.c:383:    gsl_vector_free(t[01;31m-[00m>log_prob_w);
+topic.c:384:    gsl_vector_free(t[01;31m-[00m>lgam_w_plus_eta);
+topic.c:385:    free(t[01;31m-[00m>child);
+topic.c:397:    if (t[01;31m-[00m>level < t[01;31m-[00m>tr[01;31m-[00m>depth[01;31m-[00m1)
+topic.c:417:    t[01;31m-[00m>nchild++;
+topic.c:419:    t[01;31m-[00m>child = (topic**) realloc(t[01;31m-[00m>child, sizeof(topic*) * t[01;31m-[00m>nchild);
+topic.c:420:    t[01;31m-[00m>child[t[01;31m-[00m>nchild [01;31m-[00m 1] = topic_new(t[01;31m-[00m>w_cnt[01;31m-[00m>size, t[01;31m-[00m>level+1, t, t[01;31m-[00m>tr);
+topic.c:422:    return(t[01;31m-[00m>child[t[01;31m-[00m>nchild [01;31m-[00m 1]);
+topic.c:435:    t[01;31m-[00m>w_tot = 0;
+topic.c:436:    t[01;31m-[00m>w_cnt = gsl_vector_calloc(nwords);
+topic.c:437:    t[01;31m-[00m>log_prob_w = gsl_vector_calloc(nwords);
+topic.c:438:    t[01;31m-[00m>lgam_w_plus_eta = gsl_vector_calloc(nwords);
+topic.c:439:    t[01;31m-[00m>log_doc_tot = 0; // !!! make this a NAN?
+topic.c:440:    t[01;31m-[00m>doc_tot = 0;
+topic.c:441:    t[01;31m-[00m>level = level;
+topic.c:442:    t[01;31m-[00m>nchild = 0;
+topic.c:443:    t[01;31m-[00m>child = NULL;
+topic.c:444:    t[01;31m-[00m>parent = parent;
+topic.c:445:    t[01;31m-[00m>tr = tr;
+topic.c:446:    t[01;31m-[00m>id = tr[01;31m-[00m>next_id++;
+topic.c:449:    // t[01;31m-[00m>scaling = rgamma(tr[01;31m-[00m>scaling_shape, tr[01;31m-[00m>scaling_scale);
+topic.c:450:    t[01;31m-[00m>scaling = t[01;31m-[00m>tr[01;31m-[00m>scaling_shape * t[01;31m-[00m>tr[01;31m-[00m>scaling_scale;
+topic.c:454:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c:455:    double log_p_w = log(eta) [01;31m-[00m log(eta * nwords);
+topic.c:456:    gsl_vector_set_all(t[01;31m-[00m>log_prob_w, log_p_w);
+topic.c:483: * sum     : pointer to running sum [01;31m-[00m[01;31m-[00m updated at each call
+topic.c:489:    *sum = *sum + exp(node[01;31m-[00m>prob [01;31m-[00m logsum);
+topic.c:497:	for (i = 0; i < node[01;31m-[00m>nchild; i++)
+topic.c:499:	    topic* val = tree_sample_dfs(r, node[01;31m-[00m>child[i], sum, logsum);
+topic.c:521:    if (t[01;31m-[00m>nchild > 0)
+topic.c:523:        score += log_dgamma(t[01;31m-[00m>scaling,
+topic.c:524:                            t[01;31m-[00m>tr[01;31m-[00m>scaling_shape,
+topic.c:525:                            t[01;31m-[00m>tr[01;31m-[00m>scaling_scale);
+topic.c:526:        score += log(t[01;31m-[00m>scaling) * t[01;31m-[00m>nchild;
+topic.c:527:        score [01;31m-[00m= lgam(t[01;31m-[00m>scaling + t[01;31m-[00m>doc_tot);
+topic.c:528:        for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c:530:            score += lgam(t[01;31m-[00m>scaling + t[01;31m-[00m>child[c][01;31m-[00m>doc_tot);
+topic.c:531:            score += gamma_score(t[01;31m-[00m>child[c]);
+topic.c:545:    if (t[01;31m-[00m>nchild > 0)
+topic.c:547:        t[01;31m-[00m>scaling = gibbs_sample_DP_scaling(t[01;31m-[00m>scaling,
+topic.c:548:                                             t[01;31m-[00m>tr[01;31m-[00m>scaling_shape,
+topic.c:549:                                             t[01;31m-[00m>tr[01;31m-[00m>scaling_scale,
+topic.c:550:                                             t[01;31m-[00m>nchild,
+topic.c:551:                                             t[01;31m-[00m>doc_tot);
+topic.c:554:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c:556:        dfs_sample_scaling(t[01;31m-[00m>child[c]);
+topic.c:576:    tr[01;31m-[00m>depth   = depth;
+topic.c:577:    tr[01;31m-[00m>eta     = eta;
+topic.c:578:    tr[01;31m-[00m>gam     = gam;
+topic.c:579:    tr[01;31m-[00m>next_id = 0;
+topic.c:580:    tr[01;31m-[00m>scaling_shape = scaling_shape;
+topic.c:581:    tr[01;31m-[00m>scaling_scale = scaling_scale;
+topic.c:583:    tr[01;31m-[00m>root = topic_new(nwords, 0, NULL, tr);
+topic.c:598:    fprintf(file, "%[01;31m-[00m6d", root_topic[01;31m-[00m>id);
+topic.c:600:    if (root_topic[01;31m-[00m>parent != NULL)
+topic.c:601:        fprintf(file, " %[01;31m-[00m6d", root_topic[01;31m-[00m>parent[01;31m-[00m>id);
+topic.c:603:        fprintf(file, " %[01;31m-[00m6d", [01;31m-[00m1);
+topic.c:605:    fprintf(file, " %06.0f", root_topic[01;31m-[00m>doc_tot);
+topic.c:606:    fprintf(file, " %06.0f", root_topic[01;31m-[00m>w_tot);
+topic.c:607:    fprintf(file, " %06.3e", root_topic[01;31m-[00m>scaling);
+topic.c:609:    for (i = 0; i < root_topic[01;31m-[00m>w_cnt[01;31m-[00m>size; i++)
+topic.c:611:        fprintf(file, " %6.0f", vget(root_topic[01;31m-[00m>w_cnt, i));
+topic.c:615:    for (i = 0; i < root_topic[01;31m-[00m>nchild; i++)
+topic.c:617:        write_tree_topics_dfs(root_topic[01;31m-[00m>child[i], file);
+topic.c:628:    return(ntopics_in_tree_dfs(tr[01;31m-[00m>root));
+topic.c:635:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c:637:        topics_below += ntopics_in_tree_dfs(t[01;31m-[00m>child[c]);
+topic.c:639:    return(t[01;31m-[00m>nchild + topics_below);
+topic.c:650:    free_tree_dfs(tr[01;31m-[00m>root);
+topic.c:656:    gsl_vector_free(t[01;31m-[00m>w_cnt);
+topic.c:657:    gsl_vector_free(t[01;31m-[00m>log_prob_w);
+topic.c:658:    gsl_vector_free(t[01;31m-[00m>lgam_w_plus_eta);
+topic.c:660:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c:661:        free_tree_dfs(t[01;31m-[00m>child[c]);
+topic.c:672:    tree* tree_copy = tree_new(tr[01;31m-[00m>depth,
+topic.c:673:                               tr[01;31m-[00m>root[01;31m-[00m>w_cnt[01;31m-[00m>size,
+topic.c:674:                               tr[01;31m-[00m>eta,
+topic.c:675:                               tr[01;31m-[00m>gam,
+topic.c:676:                               tr[01;31m-[00m>scaling_shape,
+topic.c:677:                               tr[01;31m-[00m>scaling_scale);
+topic.c:679:    copy_tree_dfs(tr[01;31m-[00m>root, tree_copy[01;31m-[00m>root);
+topic.c:689:    for (c = 0; c < src[01;31m-[00m>nchild; c++)
+topic.c:692:        child[01;31m-[00m>parent = dest;
+topic.c:693:        copy_tree_dfs(src[01;31m-[00m>child[c], child);
+topic.c:699:    dest[01;31m-[00m>w_tot = src[01;31m-[00m>w_tot;
+topic.c:700:    gsl_vector_memcpy(dest[01;31m-[00m>w_cnt, src[01;31m-[00m>w_cnt);
+topic.c:701:    gsl_vector_memcpy(dest[01;31m-[00m>log_prob_w, src[01;31m-[00m>log_prob_w);
+topic.c:702:    gsl_vector_memcpy(dest[01;31m-[00m>lgam_w_plus_eta, src[01;31m-[00m>lgam_w_plus_eta);
+topic.c:703:    dest[01;31m-[00m>doc_tot = src[01;31m-[00m>doc_tot;
+topic.c:704:    dest[01;31m-[00m>log_doc_tot = src[01;31m-[00m>log_doc_tot;
+topic.c:705:    dest[01;31m-[00m>id = src[01;31m-[00m>id;
+topic.c:706:    dest[01;31m-[00m>level = src[01;31m-[00m>level;
+topic.c:707:    dest[01;31m-[00m>nchild = 0; // children get added separately
+topic.c:708:    dest[01;31m-[00m>scaling = src[01;31m-[00m>scaling;
+topic.c:709:    dest[01;31m-[00m>prob = src[01;31m-[00m>prob;
+topic.c:720:    write_tree_level_dfs(tr[01;31m-[00m>root, file);
+topic.c:730:    if (root_topic[01;31m-[00m>parent == NULL)
+topic.c:732:        fprintf(file, "%d", root_topic[01;31m-[00m>level);
+topic.c:736:        fprintf(file, " %d", root_topic[01;31m-[00m>level);
+topic.c:738:    for (i = 0; i < root_topic[01;31m-[00m>nchild; i++)
+topic.c:740:        write_tree_level_dfs(root_topic[01;31m-[00m>child[i], file);
+topic.c:747:    fprintf(file, "%[01;31m-[00m6s %[01;31m-[00m6s %[01;31m-[00m6s %[01;31m-[00m6s  %[01;31m-[00m9s %[01;31m-[00m6s\n",
+topic.c:749:    write_tree_topics_dfs(tf[01;31m-[00m>root, file);
+topic.c.~1.17.~:10:    vinc(t[01;31m-[00m>w_cnt, w, update);
+topic.c.~1.17.~:11:    t[01;31m-[00m>w_tot += update;
+topic.c.~1.17.~:15:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c.~1.17.~:16:    vset(t[01;31m-[00m>log_prob_w, w,
+topic.c.~1.17.~:17:         log(vget(t[01;31m-[00m>w_cnt, w) + eta) [01;31m-[00m
+topic.c.~1.17.~:18:         log(t[01;31m-[00m>w_tot + t[01;31m-[00m>w_cnt[01;31m-[00m>size * eta));
+topic.c.~1.17.~:20:    vset(t[01;31m-[00m>lgam_w_plus_eta, w, lgam(vget(t[01;31m-[00m>w_cnt, w) + eta));
+topic.c.~1.17.~:32:    t[01;31m-[00m>doc_tot += update;
+topic.c.~1.17.~:33:    t[01;31m-[00m>log_doc_tot = log(t[01;31m-[00m>doc_tot);
+topic.c.~1.17.~:46:    int nwords = t[01;31m-[00m>w_cnt[01;31m-[00m>size;
+topic.c.~1.17.~:47:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c.~1.17.~:49:    score = lgam(nwords * eta) [01;31m-[00m nwords * lgam(eta);
+topic.c.~1.17.~:53:	// score += lgam(vget(t[01;31m-[00m>w_cnt, w) + eta);
+topic.c.~1.17.~:54:        score += vget(t[01;31m-[00m>lgam_w_plus_eta, w);
+topic.c.~1.17.~:57:    score [01;31m-[00m= lgam(t[01;31m-[00m>w_tot + nwords * eta);
+topic.c.~1.17.~:58:    // exponential(1) prior: log(1) [01;31m-[00m 1 * eta
+topic.c.~1.17.~:59:    score [01;31m-[00m= eta;
+topic.c.~1.17.~:61:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:63:        score += eta_score(t[01;31m-[00m>child[c]);
+topic.c.~1.17.~:71:    gsl_vector* vect = tr[01;31m-[00m>eta;
+topic.c.~1.17.~:72:    int depth = vect[01;31m-[00m>size;
+topic.c.~1.17.~:80:        double current_score = eta_score(tr[01;31m-[00m>root);
+topic.c.~1.17.~:89:                double new_score = eta_score(tr[01;31m-[00m>root);
+topic.c.~1.17.~:91:                if (r > exp(new_score [01;31m-[00m current_score))
+topic.c.~1.17.~:113:    int depth = d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+topic.c.~1.17.~:114:    int nword = d[01;31m-[00m>word[01;31m-[00m>size;
+topic.c.~1.17.~:119:        int level = ivget(d[01;31m-[00m>levels, n);
+topic.c.~1.17.~:121:            topic_update_word(d[01;31m-[00m>path[level], ivget(d[01;31m-[00m>word, n), update);
+topic.c.~1.17.~:125:        topic_update_doc_cnt(d[01;31m-[00m>path[n], update);
+topic.c.~1.17.~:139:    tree_update_from_doc(d, [01;31m-[00m1.0, root_level);
+topic.c.~1.17.~:140:    tree_prune(d[01;31m-[00m>path[tr[01;31m-[00m>depth [01;31m-[00m 1]);
+topic.c.~1.17.~:148:    int depth = node[01;31m-[00m>tr[01;31m-[00m>depth;
+topic.c.~1.17.~:149:    int l = depth[01;31m-[00m1;
+topic.c.~1.17.~:152:        d[01;31m-[00m>path[l] = node;
+topic.c.~1.17.~:153:        node = node[01;31m-[00m>parent;
+topic.c.~1.17.~:154:        l[01;31m-[00m[01;31m-[00m;
+topic.c.~1.17.~:167:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+topic.c.~1.17.~:169:        doc* d = corp[01;31m-[00m>doc[n];
+topic.c.~1.17.~:172:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+topic.c.~1.17.~:174:        tree_sample_doc_path(tr, corp[01;31m-[00m>doc[n], 0, 0);
+topic.c.~1.17.~:199:    double path_prob[tr[01;31m-[00m>depth];
+topic.c.~1.17.~:200:    populate_prob_dfs(d[01;31m-[00m>path[root_level], d, &logsum, path_prob, root_level);
+topic.c.~1.17.~:204:    topic* node = tree_sample_path(d[01;31m-[00m>path[root_level], logsum);
+topic.c.~1.17.~:223:    int nterms = t[01;31m-[00m>log_prob_w[01;31m-[00m>size;
+topic.c.~1.17.~:224:    int nword = d[01;31m-[00m>word[01;31m-[00m>size;
+topic.c.~1.17.~:230:	count[ivget(d[01;31m-[00m>word, n)] = 0;
+topic.c.~1.17.~:234:	if (ivget(d[01;31m-[00m>levels, n) == level)
+topic.c.~1.17.~:236:	    count[ivget(d[01;31m-[00m>word, n)]++;
+topic.c.~1.17.~:240:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c.~1.17.~:241:    result = lgam(t[01;31m-[00m>w_tot + nterms * eta); // !!! this should be precomputed
+topic.c.~1.17.~:242:    result [01;31m-[00m= lgam(t[01;31m-[00m>w_tot + vget(d[01;31m-[00m>tot_levels, level) + nterms * eta);
+topic.c.~1.17.~:246:        int wd = ivget(d[01;31m-[00m>word, n);
+topic.c.~1.17.~:249:            // result [01;31m-[00m= vget(t[01;31m-[00m>lgam_w_plus_eta, wd);
+topic.c.~1.17.~:250:            result [01;31m-[00m= lgam(vget(t[01;31m-[00m>w_cnt, wd) + eta); // !!! this should be precomputed
+topic.c.~1.17.~:251:            result += lgam(vget(t[01;31m-[00m>w_cnt, wd) + count[wd] + eta);
+topic.c.~1.17.~:263:    int nword = d[01;31m-[00m>word[01;31m-[00m>size;
+topic.c.~1.17.~:267:	count[ivget(d[01;31m-[00m>word, n)] = 0;
+topic.c.~1.17.~:271:	if (ivget(d[01;31m-[00m>levels, n) == level)
+topic.c.~1.17.~:272:	    count[ivget(d[01;31m-[00m>word, n)]++;
+topic.c.~1.17.~:275:    result [01;31m-[00m= lgam(vget(d[01;31m-[00m>tot_levels, level) + nterms * eta);
+topic.c.~1.17.~:279:	int wd = ivget(d[01;31m-[00m>word, n);
+topic.c.~1.17.~:282:	    result [01;31m-[00m= lgam(eta);
+topic.c.~1.17.~:298:    int level = node[01;31m-[00m>level;
+topic.c.~1.17.~:299:    int depth = node[01;31m-[00m>tr[01;31m-[00m>depth;
+topic.c.~1.17.~:308:        denom = log(node[01;31m-[00m>parent[01;31m-[00m>doc_tot + node[01;31m-[00m>parent[01;31m-[00m>scaling);
+topic.c.~1.17.~:310:        // denom = log(node[01;31m-[00m>parent[01;31m-[00m>doc_tot + node[01;31m-[00m>parent[01;31m-[00m>nchild * (level [01;31m-[00m 1) * 0.01 + vget(node[01;31m-[00m>tr[01;31m-[00m>gam, level [01;31m-[00m 1));
+topic.c.~1.17.~:312:        // pprob[level] += node[01;31m-[00m>log_doc_tot [01;31m-[00m denom;
+topic.c.~1.17.~:313:        pprob[level] += log(node[01;31m-[00m>doc_tot) [01;31m-[00m denom;
+topic.c.~1.17.~:318:    if (level < depth [01;31m-[00m 1)
+topic.c.~1.17.~:320:        int nterms = node[01;31m-[00m>log_prob_w[01;31m-[00m>size;
+topic.c.~1.17.~:323:            double eta = vget(node[01;31m-[00m>tr[01;31m-[00m>eta, l);
+topic.c.~1.17.~:327:        // double gam = vget(node[01;31m-[00m>tr[01;31m-[00m>gam, level) + node[01;31m-[00m>nchild * level * 0.01;
+topic.c.~1.17.~:330:        pprob[level+1] += log(node[01;31m-[00m>scaling);
+topic.c.~1.17.~:331:        pprob[level+1] [01;31m-[00m= log(node[01;31m-[00m>doc_tot + node[01;31m-[00m>scaling);
+topic.c.~1.17.~:335:    node[01;31m-[00m>prob = 0;
+topic.c.~1.17.~:336:    for (l = root_level; l < depth; l++) node[01;31m-[00m>prob += pprob[l];
+topic.c.~1.17.~:340:        *logsum = node[01;31m-[00m>prob;
+topic.c.~1.17.~:342:        *logsum = log_sum(*logsum, node[01;31m-[00m>prob);
+topic.c.~1.17.~:345:    for (c = 0; c < node[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:346:        populate_prob_dfs(node[01;31m-[00m>child[c], d, logsum, pprob, root_level);
+topic.c.~1.17.~:358:    topic* parent = t[01;31m-[00m>parent;
+topic.c.~1.17.~:359:    if (t[01;31m-[00m>doc_tot == 0)
+topic.c.~1.17.~:380:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:382:	delete_node(t[01;31m-[00m>child[c]);
+topic.c.~1.17.~:386:    int nc = t[01;31m-[00m>parent[01;31m-[00m>nchild;
+topic.c.~1.17.~:389:	if (t[01;31m-[00m>parent[01;31m-[00m>child[c] == t)
+topic.c.~1.17.~:391:	    t[01;31m-[00m>parent[01;31m-[00m>child[c] = t[01;31m-[00m>parent[01;31m-[00m>child[nc [01;31m-[00m 1];
+topic.c.~1.17.~:392:	    t[01;31m-[00m>parent[01;31m-[00m>nchild[01;31m-[00m[01;31m-[00m;
+topic.c.~1.17.~:397:    gsl_vector_free(t[01;31m-[00m>w_cnt);
+topic.c.~1.17.~:398:    gsl_vector_free(t[01;31m-[00m>log_prob_w);
+topic.c.~1.17.~:399:    gsl_vector_free(t[01;31m-[00m>lgam_w_plus_eta);
+topic.c.~1.17.~:400:    free(t[01;31m-[00m>child);
+topic.c.~1.17.~:412:    if (t[01;31m-[00m>level < t[01;31m-[00m>tr[01;31m-[00m>depth[01;31m-[00m1)
+topic.c.~1.17.~:432:    t[01;31m-[00m>nchild++;
+topic.c.~1.17.~:434:    t[01;31m-[00m>child = (topic**) realloc(t[01;31m-[00m>child, sizeof(topic*) * t[01;31m-[00m>nchild);
+topic.c.~1.17.~:435:    t[01;31m-[00m>child[t[01;31m-[00m>nchild [01;31m-[00m 1] = topic_new(t[01;31m-[00m>w_cnt[01;31m-[00m>size, t[01;31m-[00m>level+1, t, t[01;31m-[00m>tr);
+topic.c.~1.17.~:437:    return(t[01;31m-[00m>child[t[01;31m-[00m>nchild [01;31m-[00m 1]);
+topic.c.~1.17.~:450:    t[01;31m-[00m>w_tot = 0;
+topic.c.~1.17.~:451:    t[01;31m-[00m>w_cnt = gsl_vector_calloc(nwords);
+topic.c.~1.17.~:452:    t[01;31m-[00m>log_prob_w = gsl_vector_calloc(nwords);
+topic.c.~1.17.~:453:    t[01;31m-[00m>lgam_w_plus_eta = gsl_vector_calloc(nwords);
+topic.c.~1.17.~:454:    t[01;31m-[00m>log_doc_tot = 0; // !!! make this a NAN?
+topic.c.~1.17.~:455:    t[01;31m-[00m>doc_tot = 0;
+topic.c.~1.17.~:456:    t[01;31m-[00m>level = level;
+topic.c.~1.17.~:457:    t[01;31m-[00m>nchild = 0;
+topic.c.~1.17.~:458:    t[01;31m-[00m>child = NULL;
+topic.c.~1.17.~:459:    t[01;31m-[00m>parent = parent;
+topic.c.~1.17.~:460:    t[01;31m-[00m>tr = tr;
+topic.c.~1.17.~:461:    t[01;31m-[00m>id = tr[01;31m-[00m>next_id++;
+topic.c.~1.17.~:464:    // t[01;31m-[00m>scaling = rgamma(tr[01;31m-[00m>scaling_shape, tr[01;31m-[00m>scaling_scale);
+topic.c.~1.17.~:465:    t[01;31m-[00m>scaling = t[01;31m-[00m>tr[01;31m-[00m>scaling_shape * t[01;31m-[00m>tr[01;31m-[00m>scaling_scale;
+topic.c.~1.17.~:469:    double eta = vget(t[01;31m-[00m>tr[01;31m-[00m>eta, t[01;31m-[00m>level);
+topic.c.~1.17.~:470:    double log_p_w = log(eta) [01;31m-[00m log(eta * nwords);
+topic.c.~1.17.~:471:    gsl_vector_set_all(t[01;31m-[00m>log_prob_w, log_p_w);
+topic.c.~1.17.~:498: * sum     : pointer to running sum [01;31m-[00m[01;31m-[00m updated at each call
+topic.c.~1.17.~:504:    *sum = *sum + exp(node[01;31m-[00m>prob [01;31m-[00m logsum);
+topic.c.~1.17.~:512:	for (i = 0; i < node[01;31m-[00m>nchild; i++)
+topic.c.~1.17.~:514:	    topic* val = tree_sample_dfs(r, node[01;31m-[00m>child[i], sum, logsum);
+topic.c.~1.17.~:536:    if (t[01;31m-[00m>nchild > 0)
+topic.c.~1.17.~:538:        score += log_dgamma(t[01;31m-[00m>scaling,
+topic.c.~1.17.~:539:                            t[01;31m-[00m>tr[01;31m-[00m>scaling_shape,
+topic.c.~1.17.~:540:                            t[01;31m-[00m>tr[01;31m-[00m>scaling_scale);
+topic.c.~1.17.~:541:        score += log(t[01;31m-[00m>scaling) * t[01;31m-[00m>nchild;
+topic.c.~1.17.~:542:        score [01;31m-[00m= lgam(t[01;31m-[00m>scaling + t[01;31m-[00m>doc_tot);
+topic.c.~1.17.~:543:        for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:545:            score += lgam(t[01;31m-[00m>scaling + t[01;31m-[00m>child[c][01;31m-[00m>doc_tot);
+topic.c.~1.17.~:546:            score += gamma_score(t[01;31m-[00m>child[c]);
+topic.c.~1.17.~:560:    if (t[01;31m-[00m>nchild > 0)
+topic.c.~1.17.~:562:        t[01;31m-[00m>scaling = gibbs_sample_DP_scaling(t[01;31m-[00m>scaling,
+topic.c.~1.17.~:563:                                             t[01;31m-[00m>tr[01;31m-[00m>scaling_shape,
+topic.c.~1.17.~:564:                                             t[01;31m-[00m>tr[01;31m-[00m>scaling_scale,
+topic.c.~1.17.~:565:                                             t[01;31m-[00m>nchild,
+topic.c.~1.17.~:566:                                             t[01;31m-[00m>doc_tot);
+topic.c.~1.17.~:569:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:571:        dfs_sample_scaling(t[01;31m-[00m>child[c]);
+topic.c.~1.17.~:591:    tr[01;31m-[00m>depth   = depth;
+topic.c.~1.17.~:592:    tr[01;31m-[00m>eta     = eta;
+topic.c.~1.17.~:593:    tr[01;31m-[00m>gam     = gam;
+topic.c.~1.17.~:594:    tr[01;31m-[00m>next_id = 0;
+topic.c.~1.17.~:595:    tr[01;31m-[00m>scaling_shape = scaling_shape;
+topic.c.~1.17.~:596:    tr[01;31m-[00m>scaling_scale = scaling_scale;
+topic.c.~1.17.~:598:    tr[01;31m-[00m>root = topic_new(nwords, 0, NULL, tr);
+topic.c.~1.17.~:613:    fprintf(file, "%[01;31m-[00m6d", root_topic[01;31m-[00m>id);
+topic.c.~1.17.~:615:    if (root_topic[01;31m-[00m>parent != NULL)
+topic.c.~1.17.~:616:        fprintf(file, " %[01;31m-[00m6d", root_topic[01;31m-[00m>parent[01;31m-[00m>id);
+topic.c.~1.17.~:618:        fprintf(file, " %[01;31m-[00m6d", [01;31m-[00m1);
+topic.c.~1.17.~:620:    fprintf(file, " %06.0f", root_topic[01;31m-[00m>doc_tot);
+topic.c.~1.17.~:621:    fprintf(file, " %06.0f", root_topic[01;31m-[00m>w_tot);
+topic.c.~1.17.~:622:    fprintf(file, " %06.3e", root_topic[01;31m-[00m>scaling);
+topic.c.~1.17.~:624:    for (i = 0; i < root_topic[01;31m-[00m>w_cnt[01;31m-[00m>size; i++)
+topic.c.~1.17.~:626:        fprintf(file, " %6.0f", vget(root_topic[01;31m-[00m>w_cnt, i));
+topic.c.~1.17.~:630:    for (i = 0; i < root_topic[01;31m-[00m>nchild; i++)
+topic.c.~1.17.~:632:        write_tree_topics_dfs(root_topic[01;31m-[00m>child[i], file);
+topic.c.~1.17.~:643:    return(ntopics_in_tree_dfs(tr[01;31m-[00m>root));
+topic.c.~1.17.~:650:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:652:        topics_below += ntopics_in_tree_dfs(t[01;31m-[00m>child[c]);
+topic.c.~1.17.~:654:    return(t[01;31m-[00m>nchild + topics_below);
+topic.c.~1.17.~:665:    free_tree_dfs(tr[01;31m-[00m>root);
+topic.c.~1.17.~:671:    gsl_vector_free(t[01;31m-[00m>w_cnt);
+topic.c.~1.17.~:672:    gsl_vector_free(t[01;31m-[00m>log_prob_w);
+topic.c.~1.17.~:673:    gsl_vector_free(t[01;31m-[00m>lgam_w_plus_eta);
+topic.c.~1.17.~:675:    for (c = 0; c < t[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:676:        free_tree_dfs(t[01;31m-[00m>child[c]);
+topic.c.~1.17.~:687:    tree* tree_copy = tree_new(tr[01;31m-[00m>depth,
+topic.c.~1.17.~:688:                               tr[01;31m-[00m>root[01;31m-[00m>w_cnt[01;31m-[00m>size,
+topic.c.~1.17.~:689:                               tr[01;31m-[00m>eta,
+topic.c.~1.17.~:690:                               tr[01;31m-[00m>gam,
+topic.c.~1.17.~:691:                               tr[01;31m-[00m>scaling_shape,
+topic.c.~1.17.~:692:                               tr[01;31m-[00m>scaling_scale);
+topic.c.~1.17.~:694:    copy_tree_dfs(tr[01;31m-[00m>root, tree_copy[01;31m-[00m>root);
+topic.c.~1.17.~:704:    for (c = 0; c < src[01;31m-[00m>nchild; c++)
+topic.c.~1.17.~:707:        child[01;31m-[00m>parent = dest;
+topic.c.~1.17.~:708:        copy_tree_dfs(src[01;31m-[00m>child[c], child);
+topic.c.~1.17.~:714:    dest[01;31m-[00m>w_tot = src[01;31m-[00m>w_tot;
+topic.c.~1.17.~:715:    gsl_vector_memcpy(dest[01;31m-[00m>w_cnt, src[01;31m-[00m>w_cnt);
+topic.c.~1.17.~:716:    gsl_vector_memcpy(dest[01;31m-[00m>log_prob_w, src[01;31m-[00m>log_prob_w);
+topic.c.~1.17.~:717:    gsl_vector_memcpy(dest[01;31m-[00m>lgam_w_plus_eta, src[01;31m-[00m>lgam_w_plus_eta);
+topic.c.~1.17.~:718:    dest[01;31m-[00m>doc_tot = src[01;31m-[00m>doc_tot;
+topic.c.~1.17.~:719:    dest[01;31m-[00m>log_doc_tot = src[01;31m-[00m>log_doc_tot;
+topic.c.~1.17.~:720:    dest[01;31m-[00m>id = src[01;31m-[00m>id;
+topic.c.~1.17.~:721:    dest[01;31m-[00m>level = src[01;31m-[00m>level;
+topic.c.~1.17.~:722:    dest[01;31m-[00m>nchild = 0; // children get added separately
+topic.c.~1.17.~:723:    dest[01;31m-[00m>scaling = src[01;31m-[00m>scaling;
+topic.c.~1.17.~:724:    dest[01;31m-[00m>prob = src[01;31m-[00m>prob;
+topic.c.~1.17.~:735:    write_tree_level_dfs(tr[01;31m-[00m>root, file);
+topic.c.~1.17.~:745:    if (root_topic[01;31m-[00m>parent == NULL)
+topic.c.~1.17.~:747:        fprintf(file, "%d", root_topic[01;31m-[00m>level);
+topic.c.~1.17.~:751:        fprintf(file, " %d", root_topic[01;31m-[00m>level);
+topic.c.~1.17.~:753:    for (i = 0; i < root_topic[01;31m-[00m>nchild; i++)
+topic.c.~1.17.~:755:        write_tree_level_dfs(root_topic[01;31m-[00m>child[i], file);
+topic.c.~1.17.~:762:    fprintf(file, "%[01;31m-[00m6s %[01;31m-[00m6s %[01;31m-[00m6s %[01;31m-[00m6s  %[01;31m-[00m9s %[01;31m-[00m6s\n",
+topic.c.~1.17.~:764:    write_tree_topics_dfs(tf[01;31m-[00m>root, file);
+Binary file topic.o matches
+Binary file tree.pyc matches
+typedefs.h:18:    double doc_tot;         // total number of doc[01;31m-[00mlevel instances
+unused-code.C:1:[01;31m-[00m[01;31m-[00m[01;31m-[00m to permute the words before resampling them [01;31m-[00m[01;31m-[00m[01;31m-[00m
+unused-code.C:5:    gsl_permutation* perm = rpermutation(d[01;31m-[00m>word[01;31m-[00m>size);
+unused-code.C:6:    int temp1[d[01;31m-[00m>word[01;31m-[00m>size];
+unused-code.C:7:    int temp2[d[01;31m-[00m>word[01;31m-[00m>size];
+unused-code.C:8:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C:10:        temp1[i] = d[01;31m-[00m>word[01;31m-[00m>val[perm[01;31m-[00m>data[i]];
+unused-code.C:11:        temp2[i] = d[01;31m-[00m>levels[01;31m-[00m>val[perm[01;31m-[00m>data[i]];
+unused-code.C:13:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C:15:        d[01;31m-[00m>word[01;31m-[00m>val[i] = temp1[i];
+unused-code.C:16:        d[01;31m-[00m>levels[01;31m-[00m>val[i] = temp2[i];
+unused-code.C:21:[01;31m-[00m[01;31m-[00m[01;31m-[00m MH sampling of level gammas [01;31m-[00m[01;31m-[00m[01;31m-[00m
+unused-code.C:27:    outlog(stderr, "%[01;31m-[00m10s updating gam", "[TOPIC]");
+unused-code.C:28:    gsl_vector* vect = tr[01;31m-[00m>gam;
+unused-code.C:29:    int depth = vect[01;31m-[00m>size;
+unused-code.C:30:    double current_score = gamma_score(tr[01;31m-[00m>root);
+unused-code.C:47:                double new_score = gamma_score(tr[01;31m-[00m>root);
+unused-code.C:49:                if (r > exp(new_score [01;31m-[00m current_score))
+unused-code.C:67:[01;31m-[00m[01;31m-[00m PY score [01;31m-[00m[01;31m-[00m
+unused-code.C:73:    double gam = vget(t[01;31m-[00m>tr[01;31m-[00m>gam, t[01;31m-[00m>level) + gam_add;
+unused-code.C:75:    if (t[01;31m-[00m>nchild > 0)
+unused-code.C:77:        score = log(gam) * t[01;31m-[00m>nchild;
+unused-code.C:78:        score [01;31m-[00m= lgam(gam + t[01;31m-[00m>doc_tot);
+unused-code.C:79:        for (c = 0; c < t[01;31m-[00m>nchild; c++)
+unused-code.C:81:            score += gamma_score_PY(t[01;31m-[00m>child[c], (double) c * t[01;31m-[00m>level * 0.01);
+unused-code.C:99:/*     gsl_vector* log_prob = gsl_vector_alloc(d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth); */
+unused-code.C:103:/*     for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++) */
+unused-code.C:105:/*         l = ivget(d[01;31m-[00m>levels, i); */
+unused-code.C:106:/*         doc_update_level(d, l, [01;31m-[00m1.0); */
+unused-code.C:107:/*         topic_update_word(d[01;31m-[00m>path[l], ivget(d[01;31m-[00m>word, i), [01;31m-[00m1.0); */
+unused-code.C:110:/*     if (do_permute == 1) iv_permute(d[01;31m-[00m>word); */
+unused-code.C:112:/*     for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++) */
+unused-code.C:114:/*         w = ivget(d[01;31m-[00m>word, i); */
+unused-code.C:119:/*                  vget(d[01;31m-[00m>log_p_level, k) + vget(d[01;31m-[00m>path[k][01;31m-[00m>log_prob_w, w)); */
+unused-code.C:125:/*         topic_update_word(d[01;31m-[00m>path[new_l], w, 1.0); */
+unused-code.C:126:/*         ivset(d[01;31m-[00m>levels, i, new_l); */
+unused-code.C:144:    int depth = tr[01;31m-[00m>depth;
+unused-code.C:147:    for (i = 0; i < c[01;31m-[00m>ndoc; i++)
+unused-code.C:149:        doc* d = c[01;31m-[00m>doc[i];
+unused-code.C:150:        iv_permute(d[01;31m-[00m>word);
+unused-code.C:154:            d[01;31m-[00m>path[depth [01;31m-[00m 1] = tree_fill(tr[01;31m-[00m>root);
+unused-code.C:155:            topic_update_doc_cnt(d[01;31m-[00m>path[depth [01;31m-[00m 1], 1.0);
+unused-code.C:156:            for (j = depth [01;31m-[00m 2; j >= 0; j[01;31m-[00m[01;31m-[00m)
+unused-code.C:158:                d[01;31m-[00m>path[j] = d[01;31m-[00m>path[j+1][01;31m-[00m>parent;
+unused-code.C:159:                topic_update_doc_cnt(d[01;31m-[00m>path[j], 1.0);
+unused-code.C:164:            d[01;31m-[00m>path[0] = tr[01;31m-[00m>root;
+unused-code.C:169:    for (i = 0; i < c[01;31m-[00m>ndoc; i++)
+unused-code.C:171:        doc* d = c[01;31m-[00m>doc[i];
+unused-code.C:182:    int depth = tr[01;31m-[00m>depth;
+unused-code.C:184:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+unused-code.C:186:        doc* d = corp[01;31m-[00m>doc[n];
+unused-code.C:187:        d[01;31m-[00m>path[depth [01;31m-[00m 1] = tree_fill(tr[01;31m-[00m>root);
+unused-code.C:188:        topic_update_doc_cnt(d[01;31m-[00m>path[depth [01;31m-[00m 1], 1.0);
+unused-code.C:190:        for (j = depth [01;31m-[00m 2; j >= 0; j[01;31m-[00m[01;31m-[00m)
+unused-code.C:192:            d[01;31m-[00m>path[j] = d[01;31m-[00m>path[j+1][01;31m-[00m>parent;
+unused-code.C:193:            topic_update_doc_cnt(d[01;31m-[00m>path[j], 1.0);
+unused-code.C:205:    int depth = d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+unused-code.C:207:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C:209:        int w = ivget(d[01;31m-[00m>word, i);
+unused-code.C:212:        int new_l = depth [01;31m-[00m 1;
+unused-code.C:213:        topic_update_word(d[01;31m-[00m>path[new_l], w, 1.0);
+unused-code.C:214:        ivset(d[01;31m-[00m>levels, i, new_l);
+unused-code.C:225:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+unused-code.C:227:        doc* d = corp[01;31m-[00m>doc[n];
+unused-code.C:228:        tree_remove_doc_from_path(tr, d, [01;31m-[00m1);
+unused-code.C:231:        for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C:233:            int l = ivget(d[01;31m-[00m>levels, i);
+unused-code.C:234:            ivset(d[01;31m-[00m>levels, i, [01;31m-[00m1);
+unused-code.C:235:            doc_update_level(d, l, [01;31m-[00m1.0);
+unused-code.C:244:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+unused-code.C:246:        doc* d = corp[01;31m-[00m>doc[n];
+unused-code.C:249:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+unused-code.C:251:        tree_sample_doc_path(tr, corp[01;31m-[00m>doc[n], 0, 0);
+unused-code.C.~1.4.~:1:[01;31m-[00m[01;31m-[00m[01;31m-[00m to permute the words before resampling them [01;31m-[00m[01;31m-[00m[01;31m-[00m
+unused-code.C.~1.4.~:5:    gsl_permutation* perm = rpermutation(d[01;31m-[00m>word[01;31m-[00m>size);
+unused-code.C.~1.4.~:6:    int temp1[d[01;31m-[00m>word[01;31m-[00m>size];
+unused-code.C.~1.4.~:7:    int temp2[d[01;31m-[00m>word[01;31m-[00m>size];
+unused-code.C.~1.4.~:8:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C.~1.4.~:10:        temp1[i] = d[01;31m-[00m>word[01;31m-[00m>val[perm[01;31m-[00m>data[i]];
+unused-code.C.~1.4.~:11:        temp2[i] = d[01;31m-[00m>levels[01;31m-[00m>val[perm[01;31m-[00m>data[i]];
+unused-code.C.~1.4.~:13:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C.~1.4.~:15:        d[01;31m-[00m>word[01;31m-[00m>val[i] = temp1[i];
+unused-code.C.~1.4.~:16:        d[01;31m-[00m>levels[01;31m-[00m>val[i] = temp2[i];
+unused-code.C.~1.4.~:21:[01;31m-[00m[01;31m-[00m[01;31m-[00m MH sampling of level gammas [01;31m-[00m[01;31m-[00m[01;31m-[00m
+unused-code.C.~1.4.~:27:    outlog(stderr, "%[01;31m-[00m10s updating gam", "[TOPIC]");
+unused-code.C.~1.4.~:28:    gsl_vector* vect = tr[01;31m-[00m>gam;
+unused-code.C.~1.4.~:29:    int depth = vect[01;31m-[00m>size;
+unused-code.C.~1.4.~:30:    double current_score = gamma_score(tr[01;31m-[00m>root);
+unused-code.C.~1.4.~:47:                double new_score = gamma_score(tr[01;31m-[00m>root);
+unused-code.C.~1.4.~:49:                if (r > exp(new_score [01;31m-[00m current_score))
+unused-code.C.~1.4.~:67:[01;31m-[00m[01;31m-[00m PY score [01;31m-[00m[01;31m-[00m
+unused-code.C.~1.4.~:73:    double gam = vget(t[01;31m-[00m>tr[01;31m-[00m>gam, t[01;31m-[00m>level) + gam_add;
+unused-code.C.~1.4.~:75:    if (t[01;31m-[00m>nchild > 0)
+unused-code.C.~1.4.~:77:        score = log(gam) * t[01;31m-[00m>nchild;
+unused-code.C.~1.4.~:78:        score [01;31m-[00m= lgam(gam + t[01;31m-[00m>doc_tot);
+unused-code.C.~1.4.~:79:        for (c = 0; c < t[01;31m-[00m>nchild; c++)
+unused-code.C.~1.4.~:81:            score += gamma_score_PY(t[01;31m-[00m>child[c], (double) c * t[01;31m-[00m>level * 0.01);
+unused-code.C.~1.4.~:99:/*     gsl_vector* log_prob = gsl_vector_alloc(d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth); */
+unused-code.C.~1.4.~:103:/*     for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++) */
+unused-code.C.~1.4.~:105:/*         l = ivget(d[01;31m-[00m>levels, i); */
+unused-code.C.~1.4.~:106:/*         doc_update_level(d, l, [01;31m-[00m1.0); */
+unused-code.C.~1.4.~:107:/*         topic_update_word(d[01;31m-[00m>path[l], ivget(d[01;31m-[00m>word, i), [01;31m-[00m1.0); */
+unused-code.C.~1.4.~:110:/*     if (do_permute == 1) iv_permute(d[01;31m-[00m>word); */
+unused-code.C.~1.4.~:112:/*     for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++) */
+unused-code.C.~1.4.~:114:/*         w = ivget(d[01;31m-[00m>word, i); */
+unused-code.C.~1.4.~:119:/*                  vget(d[01;31m-[00m>log_p_level, k) + vget(d[01;31m-[00m>path[k][01;31m-[00m>log_prob_w, w)); */
+unused-code.C.~1.4.~:125:/*         topic_update_word(d[01;31m-[00m>path[new_l], w, 1.0); */
+unused-code.C.~1.4.~:126:/*         ivset(d[01;31m-[00m>levels, i, new_l); */
+unused-code.C.~1.4.~:144:    int depth = tr[01;31m-[00m>depth;
+unused-code.C.~1.4.~:147:    for (i = 0; i < c[01;31m-[00m>ndoc; i++)
+unused-code.C.~1.4.~:149:        doc* d = c[01;31m-[00m>doc[i];
+unused-code.C.~1.4.~:150:        iv_permute(d[01;31m-[00m>word);
+unused-code.C.~1.4.~:154:            d[01;31m-[00m>path[depth [01;31m-[00m 1] = tree_fill(tr[01;31m-[00m>root);
+unused-code.C.~1.4.~:155:            topic_update_doc_cnt(d[01;31m-[00m>path[depth [01;31m-[00m 1], 1.0);
+unused-code.C.~1.4.~:156:            for (j = depth [01;31m-[00m 2; j >= 0; j[01;31m-[00m[01;31m-[00m)
+unused-code.C.~1.4.~:158:                d[01;31m-[00m>path[j] = d[01;31m-[00m>path[j+1][01;31m-[00m>parent;
+unused-code.C.~1.4.~:159:                topic_update_doc_cnt(d[01;31m-[00m>path[j], 1.0);
+unused-code.C.~1.4.~:164:            d[01;31m-[00m>path[0] = tr[01;31m-[00m>root;
+unused-code.C.~1.4.~:169:    for (i = 0; i < c[01;31m-[00m>ndoc; i++)
+unused-code.C.~1.4.~:171:        doc* d = c[01;31m-[00m>doc[i];
+unused-code.C.~1.4.~:182:    int depth = tr[01;31m-[00m>depth;
+unused-code.C.~1.4.~:184:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+unused-code.C.~1.4.~:186:        doc* d = corp[01;31m-[00m>doc[n];
+unused-code.C.~1.4.~:187:        d[01;31m-[00m>path[depth [01;31m-[00m 1] = tree_fill(tr[01;31m-[00m>root);
+unused-code.C.~1.4.~:188:        topic_update_doc_cnt(d[01;31m-[00m>path[depth [01;31m-[00m 1], 1.0);
+unused-code.C.~1.4.~:190:        for (j = depth [01;31m-[00m 2; j >= 0; j[01;31m-[00m[01;31m-[00m)
+unused-code.C.~1.4.~:192:            d[01;31m-[00m>path[j] = d[01;31m-[00m>path[j+1][01;31m-[00m>parent;
+unused-code.C.~1.4.~:193:            topic_update_doc_cnt(d[01;31m-[00m>path[j], 1.0);
+unused-code.C.~1.4.~:205:    int depth = d[01;31m-[00m>path[0][01;31m-[00m>tr[01;31m-[00m>depth;
+unused-code.C.~1.4.~:207:    for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C.~1.4.~:209:        int w = ivget(d[01;31m-[00m>word, i);
+unused-code.C.~1.4.~:212:        int new_l = depth [01;31m-[00m 1;
+unused-code.C.~1.4.~:213:        topic_update_word(d[01;31m-[00m>path[new_l], w, 1.0);
+unused-code.C.~1.4.~:214:        ivset(d[01;31m-[00m>levels, i, new_l);
+unused-code.C.~1.4.~:225:    for (n = 1; n < corp[01;31m-[00m>ndoc; n++)
+unused-code.C.~1.4.~:227:        doc* d = corp[01;31m-[00m>doc[n];
+unused-code.C.~1.4.~:228:        tree_remove_doc_from_path(tr, d, [01;31m-[00m1);
+unused-code.C.~1.4.~:231:        for (i = 0; i < d[01;31m-[00m>word[01;31m-[00m>size; i++)
+unused-code.C.~1.4.~:233:            int l = ivget(d[01;31m-[00m>levels, i);
+unused-code.C.~1.4.~:234:            ivset(d[01;31m-[00m>levels, i, [01;31m-[00m1);
+unused-code.C.~1.4.~:235:            doc_update_level(d, l, [01;31m-[00m1.0);
+utils.c:67:    for (i = 1; i < log_prob[01;31m-[00m>size; i++)
+utils.c:74:    double rolling_sum = exp(vget(log_prob, 0) [01;31m-[00m logsum);
+utils.c:79:        rolling_sum += exp(vget(log_prob, result) [01;31m-[00m logsum);
+utils.c:95:    iv[01;31m-[00m>size = size;
+utils.c:96:    iv[01;31m-[00m>val = malloc(sizeof(int) * iv[01;31m-[00m>size);
+utils.c:98:    for (i = 0; i < iv[01;31m-[00m>size; i++)
+utils.c:106:    free(iv[01;31m-[00m>val);
+utils.c:118:    iv[01;31m-[00m>size += 1;
+utils.c:119:    iv[01;31m-[00m>val = (int*) realloc(iv[01;31m-[00m>val, sizeof(int) * (iv[01;31m-[00m>size));
+utils.c:120:    iv[01;31m-[00m>val[iv[01;31m-[00m>size [01;31m-[00m 1] = val;
+utils.c:131:    outlog("reading %ld vector from %s", v[01;31m-[00m>size, filename);
+utils.c:146:    ivc[01;31m-[00m>size = iv[01;31m-[00m>size;
+utils.c:147:    ivc[01;31m-[00m>val = malloc(sizeof(int) * ivc[01;31m-[00m>size);
+utils.c:150:    for (i = 0; i < ivc[01;31m-[00m>size; i++)
+utils.c:151:        ivc[01;31m-[00m>val[i] = iv[01;31m-[00m>val[i];
+utils.c:165:                    iv[01;31m-[00m>val,
+utils.c:166:                    iv[01;31m-[00m>size,
+utils.c:172:    assert(iv[01;31m-[00m>size == p[01;31m-[00m>size);
+utils.c:175:    for (i = 0; i < p[01;31m-[00m>size; i++)
+utils.c:177:        ivset(iv, i, ivget(ivc, p[01;31m-[00m>data[i]));
+utils.c:192:                    perm[01;31m-[00m>data, size, sizeof(size_t));
+utils.c:227:    // f(x)= [01;31m-[00m a * log(s) + log_gamma(a) + (a[01;31m-[00m1) * log(x) [01;31m-[00m x/s
+utils.c:229:    double v = [01;31m-[00m shape*log(scale)+lgam(shape)+(shape[01;31m-[00m1)*log(x)[01;31m-[00mx/scale;
+utils.c:256:    for (i = 0; i < v[01;31m-[00m>size; i++)
+utils.c:271:    for (i = 0; i < v[01;31m-[00m>size; i++)
+utils.c:286:    fprintf(file, "%[01;31m-[00m10s", name);
+utils.c:287:    for (i = 0; i < vect[01;31m-[00m>size; i++)
+utils.c:297:    outlog("reading %d[01;31m-[00mvector %s", size, name);
+utils.c:304:    for (i = 0; i < ret[01;31m-[00m>size; i++)
+utils.h:34:{ return(v[01;31m-[00m>val[n]); };
+utils.h:37:{ v[01;31m-[00m>val[n] = val; };
+utils.h:51:      return(log_b+log(1 + exp(log_a[01;31m-[00mlog_b)));
+utils.h:53:      return(log_a+log(1 + exp(log_b[01;31m-[00mlog_a)));
+Binary file utils.o matches

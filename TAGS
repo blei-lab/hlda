@@ -1,0 +1,183 @@
+
+doc.c,423
+void doc_sample_levels(8,66
+void compute_log_p_level(65,1506
+void doc_update_level(102,2469
+void read_corpus(113,2599
+corpus* corpus_new(181,4319
+void free_corpus(193,4555
+void free_doc(204,4720
+void write_corpus_assignment(219,4995
+void write_corpus_levels(237,5487
+double gem_score(260,5987
+void corpus_mh_update_gem(324,8287
+void corpus_mh_update_gem_mean(362,9385
+void corpus_mh_update_gem_scale(394,10220
+
+doc.h,133
+#define DOCH2,13
+#define OFFSET 10,136
+#define MH_GEM_STDEV 11,153
+#define MH_GEM_MEAN_STDEV 12,179
+#define MH_GEM_STDEV 13,210
+
+gibbs.c,400
+void write_gibbs_state(5,49
+void write_gibbs_output(33,971
+void compute_gibbs_score(86,2648
+void iterate_gibbs_state(101,3087
+void init_gibbs_state(164,4800
+gibbs_state* init_gibbs_state_w_rep(191,5636
+gibbs_state * new_gibbs_state(231,6828
+void set_up_directories(272,8294
+gibbs_state * new_heldout_gibbs_state(322,9943
+double mean_heldout_score(342,10412
+void free_gibbs_state(376,11369
+
+gibbs.h,253
+#define GIBBSH2,15
+#define WRITE_MODE_CORPUS 11,129
+#define DEFAULT_OUTPUT_LAG 12,157
+#define DEFAULT_HYPER_LAG 13,189
+#define DEFAULT_SHUFFLE_LAG 14,217
+#define DEFAULT_LEVEL_LAG 15,249
+#define DEFAULT_SAMPLE_GAM 16,278
+#define NINITREP 17,307
+
+hyperparameter.c,39
+double gibbs_sample_DP_scaling(21,390
+
+hyperparameter.h,29
+#define HYPERPARAMETERH2,24
+
+main.c,144
+#define MAX_ITER 11,176
+#define TEST_LAG 12,199
+#define NRESTARTS 13,220
+void main_gibbs(17,281
+void main_heldout(39,760
+int main(73,1775
+
+topic.c,1016
+void topic_update_word(8,72
+void topic_update_doc_cnt(29,511
+double eta_score(42,702
+void tree_mh_update_eta(70,1354
+void tree_update_from_doc(113,2362
+void tree_remove_doc_from_path(139,2895
+void tree_add_doc_to_path(146,3053
+void tree_sample_doc_path(171,3479
+double log_gamma_ratio(208,4294
+double log_gamma_ratio_new(246,5242
+void populate_prob_dfs(278,5881
+void tree_prune(344,7749
+void delete_node(363,7995
+topic* tree_fill(398,8577
+topic* topic_add_child(417,8790
+topic* topic_new(434,9158
+topic* tree_sample_path(473,10302
+topic* tree_sample_dfs(491,10657
+double gamma_score(524,11335
+void dfs_sample_scaling(552,11981
+tree* tree_new(576,12496
+void write_tree_topics_dfs(603,13002
+int ntopics_in_tree(635,13729
+int ntopics_in_tree_dfs(640,13808
+void free_tree(657,14056
+void free_tree_dfs(663,14130
+tree * copy_tree(680,14415
+void copy_tree_dfs(694,14801
+void copy_topic(707,15066
+void write_tree_levels(728,15609
+void write_tree_level_dfs(736,15745
+void write_tree(754,16100
+
+topic.h,78
+#define TOPICH2,15
+#define MH_ETA_STDEV 10,147
+#define MH_GAM_STDEV 11,174
+
+typedefs.h,320
+#define TYPEDEFS2,17
+#define MH_REPS 4,35
+#define TRUE 5,55
+#define FALSE 6,70
+typedef struct topic11,135
+} topic;30,1011
+typedef struct tree33,1022
+} tree;42,1488
+typedef struct doc45,1498
+} doc;57,1899
+typedef struct corpus60,1908
+} corpus;67,2020
+typedef struct gibbs_state69,2031
+} gibbs_state;96,2539
+
+unused-code.C,601
+    gsl_permutation* perm 5,75
+    int temp1[temp16,132
+    int temp2[temp27,162
+    for (i = 0; i < d->word->size;size8,192
+        temp1[temp110,238
+        temp2[temp211,286
+    for (i = 0; i < d->word->size;size13,342
+        d->word->val[val15,388
+        d->levels->val[val16,424
+void tree_mh_update_gam(25,575
+double gamma_score_PY(69,1661
+void initialize_corpus_old(140,3362
+void reinitialize_corpus(179,4231
+void doc_initialize_levels(202,4799
+void remove_state(222,5381
+void tree_sample_all(241,5833
+double alpha_score(261,6185
+void corpus_mh_update_alpha(288,6704
+
+utils.c,854
+gsl_rng* RANDNUMGEN 2,19
+void init_random_number_generator(9,105
+int directory_exist(29,445
+void make_directory(55,712
+int sample_from_log(66,850
+int_vector* new_int_vector(94,1332
+void delete_int_vector(107,1579
+void ivappend(119,1705
+void vct_fscanf(132,1905
+int_vector* iv_copy(146,2172
+void iv_permute(165,2478
+void iv_permute_from_perm(173,2640
+gsl_permutation* rpermutation(191,2946
+double runif(205,3189
+double rgauss(211,3251
+double rgamma(219,3406
+double log_dgamma(226,3538
+double rbeta(237,3788
+int rbernoulli(244,3901
+double sum(255,4019
+void print_vector(271,4190
+void write_vect(286,4391
+gsl_vector* read_vect(298,4624
+int read_int(324,5048
+void write_int(334,5246
+void write_double(341,5354
+double read_double(347,5472
+FILE* LOG;356,5640
+static time_t TVAL;357,5651
+void outlog(358,5671
+void resize(382,6026
+
+utils.h,354
+#define UTILSH2,15
+time_t TIME;17,312
+char line1[line118,325
+typedef struct int_vector22,372
+} int_vector;26,428
+static inline int ivget(33,562
+static inline void ivset(36,633
+static inline void vset(39,712
+static inline double vget(42,799
+static inline void vinc(45,889
+static inline double log_sum(48,979
+static inline double lgam(56,1164
+
+ncrp-gibbs.c,0
